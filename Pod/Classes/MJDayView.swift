@@ -17,6 +17,7 @@ public class MJDayView: UIView {
     }
     var delegate: MJComponentDelegate!
     var label: UILabel!
+    var borderView: UIView!
     var isSameMonth = true {
         didSet {
             if isSameMonth != oldValue {
@@ -34,6 +35,7 @@ public class MJDayView: UIView {
         self.delegate = delegate
         super.init(frame: CGRectZero)
         self.setUpGesture()
+        self.setUpBorderView()
         self.setUpLabel()
         self.updateView()
     }
@@ -47,6 +49,11 @@ public class MJDayView: UIView {
         self.delegate.didSelectDate(self.date)
     }
     
+    func setUpBorderView() {
+        self.borderView = UIView()
+        self.addSubview(self.borderView)
+    }
+    
     func setUpLabel() {
         self.label = UILabel()
         self.label.textAlignment = .Center
@@ -55,10 +62,24 @@ public class MJDayView: UIView {
     }
     
     override public func layoutSubviews() {
-        let labelSize = self.delegate.getConfiguration().dayViewSize
+        let labelSize = self.labelSize()
         let labelFrame = CGRectMake((self.width() - labelSize.width) / 2,
             (self.height() - labelSize.height) / 2, labelSize.width, labelSize.height)
         self.label.frame = labelFrame
+        
+        let dayViewSize = self.delegate.getConfiguration().dayViewSize
+        let borderFrame = CGRectMake((self.width() - dayViewSize.width) / 2,
+            (self.height() - dayViewSize.height) / 2, dayViewSize.width, dayViewSize.height)
+        self.borderView.frame = borderFrame
+    }
+    
+    func labelSize() -> CGSize {
+        let dayViewSize = self.delegate.getConfiguration().dayViewSize
+        let borderSize = self.delegate.getConfiguration().selectedBorderWidth
+        let labelSize = self.delegate.getConfiguration().selectedDayType == .Filled
+            ? dayViewSize
+            : CGSizeMake(dayViewSize.width - 2 * borderSize, dayViewSize.height - 2 * borderSize)
+        return labelSize
     }
     
     func updateView() {
@@ -68,13 +89,16 @@ public class MJDayView: UIView {
         self.setBackgrounds()
         self.setTextColors()
         self.setViewBackgrounds()
+        self.setBorder()
     }
     
     func setShape() {
-        let cornerRadius = self.delegate.getConfiguration().dayViewType == .Circle
-            ? self.delegate.getConfiguration().dayViewSize.width / 2
+        let labelCornerRadius = self.delegate.getConfiguration().dayViewType == .Circle
+            ? self.labelSize().width / 2
             : 0
-        self.label.layer.cornerRadius = cornerRadius
+        self.label.layer.cornerRadius = labelCornerRadius
+        let borderCornerRadius = self.delegate.getConfiguration().dayViewSize.width / 2
+        self.borderView.layer.cornerRadius = borderCornerRadius
     }
     
     func setViewBackgrounds() {
@@ -86,7 +110,8 @@ public class MJDayView: UIView {
     }
     
     func setTextColors() {
-        if self.delegate.isDateSelected(self.date) {
+        if self.delegate.isDateSelected(self.date)
+            && self.delegate.getConfiguration().selectedDayType == .Filled {
             self.label.textColor = self.delegate.getConfiguration().selectedDayTextColor
         } else if self.isSameMonth {
             if let textColor = self.delegate.textColorForDate(self.date) {
@@ -100,7 +125,8 @@ public class MJDayView: UIView {
     }
     
     func setBackgrounds() {
-        if self.delegate.isDateSelected(self.date) {
+        if self.delegate.isDateSelected(self.date)
+            && self.delegate.getConfiguration().selectedDayType == .Filled {
             self.label.backgroundColor = self.delegate.getConfiguration().selectedDayBackgroundColor
         } else if let backgroundColor = self.delegate.backgroundColorForDate(self.date) {
             self.label.backgroundColor = self.isSameMonth
@@ -113,5 +139,8 @@ public class MJDayView: UIView {
         }
     }
     
-    
+    func setBorder() {
+        self.borderView.backgroundColor = self.delegate.getConfiguration().selectedDayBackgroundColor
+        self.borderView.hidden = !self.delegate.isDateSelected(self.date)
+    }
 }

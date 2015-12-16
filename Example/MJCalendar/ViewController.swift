@@ -47,6 +47,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.calendarView.calendarDelegate = self
         self.calendarView.configuration.periodType = .Month
         self.calendarView.configuration.dayViewType = .Circle
+        self.calendarView.configuration.selectedDayType = .Border
+        self.calendarView.configuration.selectedBorderWidth = 1
         self.calendarView.configuration.dayTextColor = UIColor(hexString: "6f787c")
         self.calendarView.configuration.dayBackgroundColor = UIColor(hexString: "f0f0f0")
         self.calendarView.configuration.selectedDayTextColor = UIColor.whiteColor()
@@ -72,7 +74,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 let dayColors = DayColors(backgroundColor: randColor, textColor: UIColor.whiteColor())
                 self.dayColors[day] = dayColors
             }
-            
         }
     }
     

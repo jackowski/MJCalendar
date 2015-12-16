@@ -29,9 +29,14 @@ public struct MJConfiguration {
         case Monday, Sunday
     }
     
+    public enum SelectedDayType {
+        case Filled, Border
+    }
+    
     public var periodType: PeriodType = .TwoWeeks
     public var dayViewType: DayViewType = .Circle
     public var startDayType: StartDayType = .Monday
+    public var selectedDayType: SelectedDayType = .Border
     
     public var lineHeight: CGFloat = 30
     public var dayViewSize: CGSize = CGSizeMake(24, 24)
@@ -47,10 +52,11 @@ public struct MJConfiguration {
     
     public var selectedDayBackgroundColor = UIColor.whiteColor()
     public var selectedDayTextColor = UIColor.redColor()
+    public var selectedBorderWidth: CGFloat = 1
     
     public var weekLabelFont = UIFont.systemFontOfSize(12)
     public var weekLabelTextColor = UIColor.whiteColor()
-    public var weekLabelHeight: CGFloat = 20
+    public var weekLabelHeight: CGFloat = 25
     
     static func getDefault() -> MJConfiguration {
         let configuration = MJConfiguration()

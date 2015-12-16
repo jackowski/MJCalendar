@@ -34,14 +34,14 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ehn-x5-C1v" customClass="MJCalendarView" customModule="MJCalendar">
-                                <rect key="frame" x="5" y="0.0" width="310" height="200"/>
+                                <rect key="frame" x="5" y="5" width="310" height="205"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="Cuh-BE-kMg"/>
+                                    <constraint firstAttribute="height" constant="205" id="Cuh-BE-kMg"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ZKs-Lk-Tzh">
-                                <rect key="frame" x="0.0" y="210" width="320" height="250"/>
+                                <rect key="frame" x="0.0" y="220" width="320" height="240"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" restorationIdentifier="TableViewCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" rowHeight="50" id="cej-yu-xcW" customClass="TableViewCell" customModule="MJCalendar_Example" customModuleProvider="target">
@@ -51,16 +51,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QUq-OX-VYz">
-                                                    <rect key="frame" x="8" y="10" width="30" height="30"/>
+                                                    <rect key="frame" x="8" y="15" width="20" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="fAA-ij-RUL"/>
-                                                        <constraint firstAttribute="width" constant="30" id="oUi-av-h3e"/>
+                                                        <constraint firstAttribute="height" constant="20" id="fAA-ij-RUL"/>
+                                                        <constraint firstAttribute="width" constant="20" id="oUi-av-h3e"/>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11/12 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IUS-aF-djd">
-                                                    <rect key="frame" x="48" y="14" width="87" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="38" y="17" width="68" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" red="0.58431372550000005" green="0.64705882349999999" blue="0.64705882349999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -124,7 +124,7 @@
                         <constraints>
                             <constraint firstItem="ZKs-Lk-Tzh" firstAttribute="top" secondItem="ehn-x5-C1v" secondAttribute="bottom" constant="10" id="Muv-wR-SvZ"/>
                             <constraint firstItem="INt-lW-K7B" firstAttribute="top" secondItem="ZKs-Lk-Tzh" secondAttribute="bottom" id="NWi-7T-SKv"/>
-                            <constraint firstItem="ehn-x5-C1v" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="XR5-YH-Zh0"/>
+                            <constraint firstItem="ehn-x5-C1v" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="5" id="XR5-YH-Zh0"/>
                             <constraint firstItem="ZKs-Lk-Tzh" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="ZUy-1H-Lav"/>
                             <constraint firstAttribute="trailing" secondItem="ZKs-Lk-Tzh" secondAttribute="trailing" id="eeo-O5-Yij"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="ZKs-Lk-Tzh" secondAttribute="bottom" id="jy8-Vs-YgH"/>
