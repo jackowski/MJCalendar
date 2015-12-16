@@ -30,19 +30,25 @@ public struct MJConfiguration {
     }
     
     public var periodType: PeriodType = .TwoWeeks
-    public var dayViewType: DayViewType = .Square
+    public var dayViewType: DayViewType = .Circle
     public var startDayType: StartDayType = .Monday
     
     public var lineHeight: CGFloat = 30
-    public var dayViewSize: CGSize = CGSizeMake(26, 26)
+    public var dayViewSize: CGSize = CGSizeMake(24, 24)
     public var dayTextFont = UIFont.systemFontOfSize(12)
+    
     public var otherMonthBackgroundColor = UIColor.clearColor()
+    public var otherMonthDayViewBackgroundColor = UIColor.clearColor()
     public var otherMonthTextColor = UIColor.whiteColor()
+    
     public var dayBackgroundColor = UIColor.blueColor()
+    public var dayDayViewBackgroundColor = UIColor.whiteColor()
     public var dayTextColor = UIColor.whiteColor()
+    
     public var selectedDayBackgroundColor = UIColor.whiteColor()
     public var selectedDayTextColor = UIColor.redColor()
-    public var weekLabelFont = UIFont.systemFontOfSize(13)
+    
+    public var weekLabelFont = UIFont.systemFontOfSize(12)
     public var weekLabelTextColor = UIColor.whiteColor()
     public var weekLabelHeight: CGFloat = 20
     

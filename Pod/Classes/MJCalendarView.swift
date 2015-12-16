@@ -15,6 +15,9 @@ protocol MJComponentDelegate {
     func isDateSelected(date: NSDate) -> Bool
     func didSelectDate(date: NSDate)
     func calendarIsBeingAnimated() -> Bool
+    
+    func backgroundColorForDate(date: NSDate) -> UIColor?
+    func textColorForDate(date: NSDate) -> UIColor?
 }
 
 public protocol MJCalendarViewDelegate {
@@ -216,6 +219,14 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         return self.isAnimating
     }
     
+    func backgroundColorForDate(date: NSDate) -> UIColor? {
+        return self.calendarDelegate?.backgroundColorForDate(date, calendarView: self)
+    }
+    
+    func textColorForDate(date: NSDate) -> UIColor? {
+        return self.calendarDelegate?.textColorForDate(date, calendarView: self)
+    }
+    
     // MARK: UIScrollViewDelegate
     
     
@@ -254,6 +265,7 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         self.currentFrame = CGRectZero
         
         self.setPeriodViews()
+        self.weekLabelsView?.updateView()
     }
     
     func recalculatedVisibleDate(withOtherMonth: Bool) -> NSDate {

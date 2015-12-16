@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZDW-rj-FhJ">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -33,7 +34,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ehn-x5-C1v" customClass="MJCalendarView" customModule="MJCalendar">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                                <rect key="frame" x="5" y="0.0" width="310" height="200"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="Cuh-BE-kMg"/>
@@ -49,17 +50,33 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cej-yu-xcW" id="grd-9d-Dyr">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QUq-OX-VYz">
-                                                    <rect key="frame" x="10" y="10" width="30" height="30"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QUq-OX-VYz">
+                                                    <rect key="frame" x="8" y="10" width="30" height="30"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="fAA-ij-RUL"/>
+                                                        <constraint firstAttribute="width" constant="30" id="oUi-av-h3e"/>
+                                                    </constraints>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="11/12 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IUS-aF-djd">
-                                                    <rect key="frame" x="50" y="0.0" width="270" height="50"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11/12 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IUS-aF-djd">
+                                                    <rect key="frame" x="48" y="14" width="87" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.58431372550000005" green="0.64705882349999999" blue="0.64705882349999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="IUS-aF-djd" secondAttribute="centerY" id="0GO-9u-aI3"/>
+                                                <constraint firstItem="IUS-aF-djd" firstAttribute="leading" secondItem="QUq-OX-VYz" secondAttribute="trailing" constant="10" id="NJ1-bd-ejH"/>
+                                                <constraint firstItem="IUS-aF-djd" firstAttribute="top" secondItem="QUq-OX-VYz" secondAttribute="bottom" constant="-40" id="nPT-AH-9j2"/>
+                                                <constraint firstAttribute="centerY" secondItem="QUq-OX-VYz" secondAttribute="centerY" id="pr2-Uh-g03"/>
+                                                <constraint firstItem="QUq-OX-VYz" firstAttribute="leading" secondItem="grd-9d-Dyr" secondAttribute="leadingMargin" id="s78-DN-ent"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="nPT-AH-9j2"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="colorView" destination="QUq-OX-VYz" id="qfc-Jv-gKQ"/>
@@ -103,7 +120,7 @@
                                 </items>
                             </toolbar>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.90588235294117647" green="0.90588235294117647" blue="0.90588235294117647" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="ZKs-Lk-Tzh" firstAttribute="top" secondItem="ehn-x5-C1v" secondAttribute="bottom" constant="10" id="Muv-wR-SvZ"/>
                             <constraint firstItem="INt-lW-K7B" firstAttribute="top" secondItem="ZKs-Lk-Tzh" secondAttribute="bottom" id="NWi-7T-SKv"/>
@@ -113,8 +130,8 @@
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="ZKs-Lk-Tzh" secondAttribute="bottom" id="jy8-Vs-YgH"/>
                             <constraint firstItem="INt-lW-K7B" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="kGL-ig-vhQ"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="INt-lW-K7B" secondAttribute="bottom" id="ma6-IW-b03"/>
-                            <constraint firstAttribute="trailing" secondItem="ehn-x5-C1v" secondAttribute="trailing" id="spr-LK-daU"/>
-                            <constraint firstItem="ehn-x5-C1v" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="uTD-GK-QUF"/>
+                            <constraint firstAttribute="trailing" secondItem="ehn-x5-C1v" secondAttribute="trailing" constant="5" id="spr-LK-daU"/>
+                            <constraint firstItem="ehn-x5-C1v" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="5" id="uTD-GK-QUF"/>
                             <constraint firstAttribute="trailing" secondItem="INt-lW-K7B" secondAttribute="trailing" id="z3a-Jq-1Ks"/>
                         </constraints>
                         <variation key="default">

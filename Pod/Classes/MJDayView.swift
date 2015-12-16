@@ -50,6 +50,7 @@ public class MJDayView: UIView {
     func setUpLabel() {
         self.label = UILabel()
         self.label.textAlignment = .Center
+        self.label.clipsToBounds = true
         self.addSubview(self.label)
     }
     
@@ -63,17 +64,24 @@ public class MJDayView: UIView {
     func updateView() {
         self.label.font = self.delegate.getConfiguration().dayTextFont
         self.label.text = "\(self.date.day)"
+        self.setShape()
         self.setBackgrounds()
         self.setTextColors()
+        self.setViewBackgrounds()
     }
     
-    func setBackgrounds() {
-        if self.delegate.isDateSelected(self.date) {
-            self.label.backgroundColor = self.delegate.getConfiguration().selectedDayBackgroundColor
-        } else if self.isSameMonth {
-            self.label.backgroundColor = self.delegate.getConfiguration().dayBackgroundColor
+    func setShape() {
+        let cornerRadius = self.delegate.getConfiguration().dayViewType == .Circle
+            ? self.delegate.getConfiguration().dayViewSize.width / 2
+            : 0
+        self.label.layer.cornerRadius = cornerRadius
+    }
+    
+    func setViewBackgrounds() {
+        if self.isSameMonth {
+            self.backgroundColor = self.delegate.getConfiguration().dayBackgroundColor
         } else {
-            self.label.backgroundColor = self.delegate.getConfiguration().otherMonthBackgroundColor
+            self.backgroundColor = self.delegate.getConfiguration().otherMonthBackgroundColor
         }
     }
     
@@ -81,9 +89,29 @@ public class MJDayView: UIView {
         if self.delegate.isDateSelected(self.date) {
             self.label.textColor = self.delegate.getConfiguration().selectedDayTextColor
         } else if self.isSameMonth {
-            self.label.textColor = self.delegate.getConfiguration().dayTextColor
+            if let textColor = self.delegate.textColorForDate(self.date) {
+                self.label.textColor = textColor
+            } else {
+                self.label.textColor = self.delegate.getConfiguration().dayTextColor
+            }
         } else {
             self.label.textColor = self.delegate.getConfiguration().otherMonthTextColor
         }
     }
+    
+    func setBackgrounds() {
+        if self.delegate.isDateSelected(self.date) {
+            self.label.backgroundColor = self.delegate.getConfiguration().selectedDayBackgroundColor
+        } else if let backgroundColor = self.delegate.backgroundColorForDate(self.date) {
+            self.label.backgroundColor = self.isSameMonth
+                ? backgroundColor
+                : self.delegate.getConfiguration().otherMonthBackgroundColor
+        } else {
+            self.label.backgroundColor = self.isSameMonth
+                ? self.delegate.getConfiguration().dayBackgroundColor
+                : self.delegate.getConfiguration().otherMonthBackgroundColor
+        }
+    }
+    
+    
 }

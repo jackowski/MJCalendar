@@ -57,6 +57,14 @@ class MJWeekLabelsView: UIView {
         }
     }
     
+    func updateView() {
+        for (index, weekLabel) in enumerate(self.weekLabels) {
+            weekLabel.font = self.delegate.getConfiguration().weekLabelFont
+            weekLabel.textColor = self.delegate.getConfiguration().weekLabelTextColor
+            weekLabel.text = self.dayWeekText[index]
+        }
+    }
+    
     override func layoutSubviews() {
         for (index, weekLabel) in enumerate(self.weekLabels) {
             let labelWidth: CGFloat = self.width() / 7
