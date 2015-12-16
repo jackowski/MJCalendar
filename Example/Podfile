@@ -3,6 +3,7 @@ use_frameworks!
 
 target 'MJCalendar_Example', :exclusive => true do
   pod "MJCalendar", :path => "../"
+  pod 'HexColors', '~> 2.3'
 end
 
 target 'MJCalendar_Tests', :exclusive => true do

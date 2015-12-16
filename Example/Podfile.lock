@@ -1,0 +1,38 @@
+PODS:
+  - FBSnapshotTestCase (1.8.1)
+  - HexColors (2.3.0)
+  - MJCalendar (0.1.0):
+    - NSDate-Escort (~> 1.5)
+    - UIView+JMFrame
+  - Nimble (0.4.2)
+  - Nimble-Snapshots (0.4.0):
+    - FBSnapshotTestCase (~> 1.7)
+    - Nimble (~> 0.4)
+    - Quick (~> 0.3)
+  - NSDate-Escort (1.5.2)
+  - Quick (0.3.1)
+  - UIView+JMFrame (0.1.2)
+
+DEPENDENCIES:
+  - FBSnapshotTestCase
+  - HexColors (~> 2.3)
+  - MJCalendar (from `../`)
+  - Nimble
+  - Nimble-Snapshots
+  - Quick (~> 0.3.1)
+
+EXTERNAL SOURCES:
+  MJCalendar:
+    :path: ../
+
+SPEC CHECKSUMS:
+  FBSnapshotTestCase: 3dc3899168747a0319c5278f5b3445c13a6532dd
+  HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
+  MJCalendar: 4f4ff7f1c3c2928521d60f7b6a3ea265c6e42afd
+  Nimble: 49b7a7da8919f42823d37c6d68cc6d15a7009f32
+  Nimble-Snapshots: 216ae8c0ea3f4105be1606749fe15d8b2138af40
+  NSDate-Escort: 7ec4191ec9ef37f1303b556f9a755a433f8197fd
+  Quick: 824572d3d198d51e52cf4aa722cebf7e59952a35
+  UIView+JMFrame: a907974c9d34b1c300aef85ae2a1a5af746f2b8a
+
+COCOAPODS: 0.38.2
