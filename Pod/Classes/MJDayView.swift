@@ -83,13 +83,24 @@ public class MJDayView: UIView {
     }
     
     func updateView() {
-        self.label.font = self.delegate.getConfiguration().dayTextFont
-        self.label.text = "\(self.date.day)"
+        self.setText()
         self.setShape()
         self.setBackgrounds()
         self.setTextColors()
         self.setViewBackgrounds()
         self.setBorder()
+    }
+    
+    func setText() {
+        self.label.font = self.delegate.getConfiguration().dayTextFont
+        let text = "\(self.date.day)"
+        let isToday = NSDate().dateAtStartOfDay() == self.date.dateAtStartOfDay()
+        if isToday {
+            let underlineAttribute = [NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue]
+            self.label.attributedText = NSAttributedString(string: text, attributes: underlineAttribute)
+        } else {
+            self.label.attributedText = NSAttributedString(string: text)
+        }
     }
     
     func setShape() {
