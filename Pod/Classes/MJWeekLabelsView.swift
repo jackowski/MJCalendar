@@ -8,8 +8,7 @@
 
 import UIKit
 
-class MJWeekLabelsView: UIView {
-    var delegate: MJComponentDelegate!
+class MJWeekLabelsView: MJComponentView {
     var weekLabels: [UILabel] = []
     var dayWeekText: [String] {
         if self.delegate.getConfiguration().startDayType == .Monday {
@@ -35,9 +34,8 @@ class MJWeekLabelsView: UIView {
         }
     }
 
-    init(delegate: MJComponentDelegate) {
-        self.delegate = delegate
-        super.init(frame: CGRectZero)
+    override init(delegate: MJComponentDelegate) {
+        super.init(delegate: delegate)
         self.setUpView()
     }
 

@@ -9,13 +9,12 @@
 import UIKit
 import NSDate_Escort
 
-public class MJDayView: UIView {
+public class MJDayView: MJComponentView {
     var date: NSDate! {
         didSet {
             self.updateView()
         }
     }
-    var delegate: MJComponentDelegate!
     var label: UILabel!
     var borderView: UIView!
     var isSameMonth = true {
@@ -32,8 +31,7 @@ public class MJDayView: UIView {
     
     init(date: NSDate, delegate: MJComponentDelegate) {
         self.date = date
-        self.delegate = delegate
-        super.init(frame: CGRectZero)
+        super.init(delegate: delegate)
         self.setUpGesture()
         self.setUpBorderView()
         self.setUpLabel()

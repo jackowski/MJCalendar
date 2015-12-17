@@ -10,16 +10,6 @@ import UIKit
 import NSDate_Escort
 import UIView_JMFrame
 
-protocol MJComponentDelegate {
-    func getConfiguration() -> MJConfiguration
-    func isDateSelected(date: NSDate) -> Bool
-    func didSelectDate(date: NSDate)
-    func calendarIsBeingAnimated() -> Bool
-    
-    func backgroundColorForDate(date: NSDate) -> UIColor?
-    func textColorForDate(date: NSDate) -> UIColor?
-}
-
 public protocol MJCalendarViewDelegate {
     func didChangePeriod(periodDate: NSDate, calendarView: MJCalendarView)
     func didSelectDate(date: NSDate, calendarView: MJCalendarView)

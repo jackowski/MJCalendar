@@ -9,13 +9,12 @@
 import UIKit
 import NSDate_Escort
 
-public class MJPeriodView: UIView {
+public class MJPeriodView: MJComponentView {
     var date: NSDate! {
         didSet {
             self.configureViews()
         }
     }
-    var delegate: MJComponentDelegate!
     var weeks: [MJWeekView]?
     var numberOfWeeks: Int {
         return self.delegate!.getConfiguration().periodType.weeksCount()
@@ -27,8 +26,7 @@ public class MJPeriodView: UIView {
     
     init(date: NSDate, delegate: MJComponentDelegate) {
         self.date = date
-        self.delegate = delegate
-        super.init(frame: CGRectZero)
+        super.init(delegate: delegate)
         self.clipsToBounds = true
         self.configureViews()
     }
