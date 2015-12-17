@@ -11,7 +11,7 @@ import NSDate_Escort
 import UIView_JMFrame
 
 public protocol MJCalendarViewDelegate {
-    func didChangePeriod(periodDate: NSDate, calendarView: MJCalendarView)
+    func didChangePeriod(periodDate: NSDate, bySwipe: Bool, calendarView: MJCalendarView)
     func didSelectDate(date: NSDate, calendarView: MJCalendarView)
     func backgroundColorForDate(date: NSDate, calendarView: MJCalendarView) -> UIColor?
     func textColorForDate(date: NSDate, calendarView: MJCalendarView) -> UIColor?
@@ -95,8 +95,6 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         }
     }
     
-    
-    
     func setPeriodFrames() {
         let mod7 = self.width() % 7
         let width = self.width() - mod7
@@ -150,12 +148,12 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
     func periodDate(date: NSDate, isNext: Bool, withOtherMonth: Bool) -> NSDate {
         let isNextFactor = isNext ? 1 : -1
         switch self.configuration.periodType {
-        case .Month:
-            let otherMonthDate = date.dateByAddingMonths(1 * isNextFactor)
-            return self.startDate(otherMonthDate, withOtherMonth: withOtherMonth)
-        case .ThreeWeeks: return date.dateByAddingDays((3 * isNextFactor) * 7)
-        case .TwoWeeks: return date.dateByAddingDays((2 * isNextFactor) * 7)
-        case .OneWeek: return date.dateByAddingDays((1 * isNextFactor) * 7)
+            case .Month:
+                let otherMonthDate = date.dateByAddingMonths(1 * isNextFactor)
+                return self.startDate(otherMonthDate, withOtherMonth: withOtherMonth)
+            case .ThreeWeeks: return date.dateByAddingDays((3 * isNextFactor) * 7)
+            case .TwoWeeks: return date.dateByAddingDays((2 * isNextFactor) * 7)
+            case .OneWeek: return date.dateByAddingDays((1 * isNextFactor) * 7)
         }
     }
     
@@ -164,7 +162,7 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
             let periodDate = self.startDate(date, withOtherMonth: false)
             self.visiblePeriodDate = date.timeIntervalSince1970 < self.date.timeIntervalSince1970
                 ? self.retroPeriodDate(periodDate) : periodDate
-            self.calendarDelegate?.didChangePeriod(periodDate, calendarView: self)
+            self.calendarDelegate?.didChangePeriod(periodDate, bySwipe: false, calendarView: self)
         }
         self.date = date
         self.setPeriodViews()
@@ -172,10 +170,10 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
     
     func retroPeriodDate(periodDate: NSDate) -> NSDate {
         switch self.configuration.periodType {
-        case .Month: return periodDate
-        case .ThreeWeeks: return periodDate.dateByAddingDays(-14)
-        case .TwoWeeks: return periodDate.dateByAddingDays(-7)
-        case .OneWeek: return periodDate
+            case .Month: return periodDate
+            case .ThreeWeeks: return periodDate.dateByAddingDays(-14)
+            case .TwoWeeks: return periodDate.dateByAddingDays(-7)
+            case .OneWeek: return periodDate
         }
     }
     
@@ -231,7 +229,7 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         if self.visiblePeriodDate !=  periodDate {
             self.visiblePeriodDate = periodDate
             self.setPeriodViews()
-            self.calendarDelegate?.didChangePeriod(periodDate, calendarView: self)
+            self.calendarDelegate?.didChangePeriod(periodDate, bySwipe: true, calendarView: self)
             self.selectDate(periodDate)
         }
     }

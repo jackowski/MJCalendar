@@ -13,10 +13,10 @@ public struct MJConfiguration {
         case OneWeek, TwoWeeks, ThreeWeeks, Month
         func weeksCount() -> Int {
             switch self {
-            case .Month: return 6
-            case .ThreeWeeks: return 3
-            case .TwoWeeks: return 2
-            case .OneWeek: return 1
+                case .Month: return 6
+                case .ThreeWeeks: return 3
+                case .TwoWeeks: return 2
+                case .OneWeek: return 1
             }
         }
     }

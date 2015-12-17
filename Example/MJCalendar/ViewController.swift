@@ -43,7 +43,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         self.dateFormatter = NSDateFormatter()
         self.setTitleWithDate(NSDate())
-        
     }
     
     func setUpCalendarConfiguration() {
@@ -154,9 +153,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     //MARK: MJCalendarViewDelegate
-    func didChangePeriod(periodDate: NSDate, calendarView: MJCalendarView) {
+    func didChangePeriod(periodDate: NSDate, bySwipe: Bool, calendarView: MJCalendarView) {
         self.setTitleWithDate(periodDate)
-        self.scrollTableViewToDate(periodDate)
+        if bySwipe {
+            self.scrollTableViewToDate(periodDate)
+        }
     }
     
     func backgroundColorForDate(date: NSDate, calendarView: MJCalendarView) -> UIColor? {
@@ -179,7 +180,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBAction func didTapThreeWeeks(sender: AnyObject) {
         self.animateToPeriod(.ThreeWeeks)
     }
-    
     
     @IBAction func didTapTwoWeeks(sender: AnyObject) {
         self.animateToPeriod(.TwoWeeks)
