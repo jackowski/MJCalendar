@@ -22,6 +22,7 @@ protocol MJComponentDelegate {
 
 public protocol MJCalendarViewDelegate {
     func didChangePeriod(periodDate: NSDate, calendarView: MJCalendarView)
+    func didSelectDate(date: NSDate, calendarView: MJCalendarView)
     func backgroundColorForDate(date: NSDate, calendarView: MJCalendarView) -> UIColor?
     func textColorForDate(date: NSDate, calendarView: MJCalendarView) -> UIColor?
 }
@@ -213,6 +214,7 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
     
     func didSelectDate(date: NSDate) {
         self.selectDate(date)
+        self.calendarDelegate?.didSelectDate(date, calendarView: self)
     }
     
     func calendarIsBeingAnimated() -> Bool {
@@ -240,6 +242,7 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
             self.visiblePeriodDate = periodDate
             self.setPeriodViews()
             self.calendarDelegate?.didChangePeriod(periodDate, calendarView: self)
+            self.selectDate(periodDate)
         }
     }
     

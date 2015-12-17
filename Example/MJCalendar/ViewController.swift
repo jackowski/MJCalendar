@@ -22,7 +22,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var calendarViewHeight: NSLayoutConstraint!
     
-    var days: [NSDate] = []
     var dayColors = Dictionary<NSDate, DayColors>()
     var dateFormatter: NSDateFormatter!
     var colors: [UIColor] {
@@ -32,6 +31,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             UIColor(hexString: "#2fbd8f"),
         ]
     }
+    
+    let daysRange = 365
+    var isScrollingAnimation = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +43,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         self.dateFormatter = NSDateFormatter()
         self.setTitleWithDate(NSDate())
+        
     }
     
     func setUpCalendarConfiguration() {
@@ -65,14 +68,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
     func setUpDays() {
-        let range = 365
-        let startDay = NSDate().dateAtStartOfDay().dateBySubtractingDays(range / 2)
-        for i in 0...range {
-            let day = startDay.dateByAddingDays(i)
-            self.days.append(day)
+        let startDay = NSDate().dateAtStartOfDay().dateBySubtractingDays(self.daysRange / 2)
+        for i in 0...self.daysRange {
+            let day = self.dateByIndex(i)
             if let randColor = self.randColor() {
                 let dayColors = DayColors(backgroundColor: randColor, textColor: UIColor.whiteColor())
                 self.dayColors[day] = dayColors
+            } else {
+                self.dayColors[day] = nil
             }
         }
     }
@@ -92,13 +95,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.days.count
+        return self.daysRange
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TableViewCell") as! TableViewCell
         
-        let date = self.days[indexPath.row]
+        let date = self.dateByIndex(indexPath.row)
         self.dateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
         let dateString = self.dateFormatter.stringFromDate(date)
         cell.dateLabel.text = dateString
@@ -110,19 +113,50 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        if let visibleCells = self.tableView.indexPathsForVisibleRows() {
-            let index = visibleCells.count / 2
-            if let cellIndexPath = visibleCells.first as? NSIndexPath {
-                let day = self.days[cellIndexPath.row]
-                self.calendarView.selectDate(day)
+        if !self.isScrollingAnimation {
+            if let visibleCells = self.tableView.indexPathsForVisibleRows() {
+                let index = visibleCells.count / 2
+                if let cellIndexPath = visibleCells.first as? NSIndexPath {
+                    let day = self.dateByIndex(cellIndexPath.row)
+                    self.calendarView.selectDate(day)
+                }
             }
-            
+        }
+    }
+    
+    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+        self.isScrollingAnimation = false
+    }
+    
+    func dateByIndex(index: Int) -> NSDate {
+        let startDay = NSDate().dateAtStartOfDay().dateBySubtractingDays(self.daysRange / 2)
+        let day = startDay.dateByAddingDays(index)
+        return day
+    }
+    
+    func scrollTableViewToDate(date: NSDate) {
+        if let row = self.indexByDate(date) {
+            let indexPath = NSIndexPath(forRow: row, inSection: 0)
+            self.tableView.setContentOffset(self.tableView.contentOffset, animated: false)
+            self.isScrollingAnimation = true
+            self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+        }
+    }
+    
+    func indexByDate(date: NSDate) -> Int? {
+        let startDay = NSDate().dateAtStartOfDay().dateBySubtractingDays(self.daysRange / 2)
+        let index = date.daysAfterDate(startDay)
+        if index >= 0 && index <= self.daysRange {
+            return index
+        } else {
+            return nil
         }
     }
     
     //MARK: MJCalendarViewDelegate
     func didChangePeriod(periodDate: NSDate, calendarView: MJCalendarView) {
         self.setTitleWithDate(periodDate)
+        self.scrollTableViewToDate(periodDate)
     }
     
     func backgroundColorForDate(date: NSDate, calendarView: MJCalendarView) -> UIColor? {
@@ -131,6 +165,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func textColorForDate(date: NSDate, calendarView: MJCalendarView) -> UIColor? {
         return self.dayColors[date]?.textColor
+    }
+    
+    func didSelectDate(date: NSDate, calendarView: MJCalendarView) {
+        self.scrollTableViewToDate(date)
     }
 
     //MARK: Toolbar actions
