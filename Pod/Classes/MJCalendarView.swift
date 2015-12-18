@@ -256,6 +256,7 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         self.currentFrame = CGRectZero
         
         self.setPeriodViews()
+        self.setPeriodFrames()
         self.weekLabelsView?.updateView()
     }
     
@@ -290,7 +291,7 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         
         if periodType.weeksCount() > previousPeriodType.weeksCount() {
             self.commitConfiguration()
-            self.setPeriodFrames()
+            //self.setPeriodFrames()
             self.layoutIfNeeded()
             
             self.currentPeriod().setY(self.currentPeriod().y() + yDelta)
@@ -327,6 +328,9 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
                     self.commitConfiguration()
                     self.setPeriodFrames()
                 }
+                self.calendarDelegate?.didChangePeriod(self.visiblePeriodDate
+                    , bySwipe: false, calendarView: self)
+                
                 if let completionBlock = completion {
                     completionBlock(completed)
                 }
