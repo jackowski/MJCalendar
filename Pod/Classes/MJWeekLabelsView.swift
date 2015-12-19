@@ -39,7 +39,7 @@ class MJWeekLabelsView: MJComponentView {
         self.setUpView()
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -56,7 +56,7 @@ class MJWeekLabelsView: MJComponentView {
     }
     
     func updateView() {
-        for (index, weekLabel) in enumerate(self.weekLabels) {
+        for (index, weekLabel) in self.weekLabels.enumerate() {
             weekLabel.font = self.delegate.getConfiguration().weekLabelFont
             weekLabel.textColor = self.delegate.getConfiguration().weekLabelTextColor
             weekLabel.text = self.dayWeekText[index]
@@ -64,7 +64,7 @@ class MJWeekLabelsView: MJComponentView {
     }
     
     override func layoutSubviews() {
-        for (index, weekLabel) in enumerate(self.weekLabels) {
+        for (index, weekLabel) in self.weekLabels.enumerate() {
             let labelWidth: CGFloat = self.width() / 7
             weekLabel.frame = CGRectMake(CGFloat(index) * labelWidth, 0, labelWidth, self.height())
         }

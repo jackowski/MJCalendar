@@ -30,7 +30,7 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
     public var calendarDelegate: MJCalendarViewDelegate?
     var isAnimating = false
     
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         self.configuration = MJConfiguration.getDefault()
         self.date = NSDate().dateAtStartOfDay()
         super.init(coder: aDecoder)
@@ -102,7 +102,7 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         
         self.weekLabelsView?.frame = CGRectMake(x, 0, width, self.configuration.weekLabelHeight)
         
-        for (index, period) in enumerate(self.periods!) {
+        for (index, period) in (self.periods!).enumerate() {
             period.frame = CGRectMake(CGFloat(index) * self.width() + x, 0, width, self.periodHeight(self.configuration.periodType))
         }
         
@@ -273,7 +273,7 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
     }
     
     func weekIndexByStartDate(startDate: NSDate) -> Int {
-        for (index, week) in enumerate(self.currentPeriod().weeks!) {
+        for (index, week) in (self.currentPeriod().weeks!).enumerate() {
             if week.date == startDate {
                 return index
             }
@@ -291,7 +291,6 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         
         if periodType.weeksCount() > previousPeriodType.weeksCount() {
             self.commitConfiguration()
-            //self.setPeriodFrames()
             self.layoutIfNeeded()
             
             self.currentPeriod().setY(self.currentPeriod().y() + yDelta)

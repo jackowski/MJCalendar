@@ -1,5 +1,7 @@
 source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
+inhibit_all_warnings!
+platform :ios, '8.0'
 
 target 'MJCalendar_Example', :exclusive => true do
   pod "MJCalendar", :path => "../"
@@ -9,7 +11,7 @@ end
 target 'MJCalendar_Tests', :exclusive => true do
   pod "MJCalendar", :path => "../"
 
-  pod 'Quick', '~> 0.3.1'
+  pod 'Quick'#, '~> 0.3.1'
   pod 'Nimble'
   pod 'FBSnapshotTestCase'
   pod 'Nimble-Snapshots'

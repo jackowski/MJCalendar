@@ -17,7 +17,7 @@ public class MJWeekView: MJComponentView {
     }
     var days: [MJDayView]?
     
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -45,7 +45,7 @@ public class MJWeekView: MJComponentView {
     }
     
     override public func layoutSubviews() {
-        for (index, day) in enumerate(self.days!) {
+        for (index, day) in (self.days!).enumerate() {
             let dayWidth = self.width() / 7
             day.frame = CGRectMake(CGFloat(index) * dayWidth, 0, dayWidth, self.height())
         }

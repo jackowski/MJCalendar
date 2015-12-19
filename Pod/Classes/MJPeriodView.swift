@@ -20,7 +20,7 @@ public class MJPeriodView: MJComponentView {
         return self.delegate!.getConfiguration().periodType.weeksCount()
     }
     
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -53,7 +53,7 @@ public class MJPeriodView: MJComponentView {
     func setIsSameMonth() {
         if (self.delegate.getConfiguration().periodType == .Month) {
             let monthDate = self.weeks![1].date
-            for (index, week) in enumerate(self.weeks!) {
+            for (index, week) in (self.weeks!).enumerate() {
                 if index == 0 || index == 4 || index == 5 {
                     for dayView in week.days! {
                         dayView.isSameMonth = dayView.date.dateAtStartOfMonth() == monthDate.dateAtStartOfMonth()
@@ -64,10 +64,9 @@ public class MJPeriodView: MJComponentView {
     }
     
     override public func layoutSubviews() {
-        for (index, week) in enumerate(self.weeks!) {
+        for (index, week) in (self.weeks!).enumerate() {
             let lineHeight = self.delegate.getConfiguration().lineHeight
             week.frame = CGRectMake(0, CGFloat(index) * lineHeight, self.width(), lineHeight)
-            println(week.frame)
         }
     }
     

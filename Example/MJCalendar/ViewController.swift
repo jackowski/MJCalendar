@@ -67,7 +67,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
     func setUpDays() {
-        let startDay = NSDate().dateAtStartOfDay().dateBySubtractingDays(self.daysRange / 2)
         for i in 0...self.daysRange {
             let day = self.dateByIndex(i)
             if let randColor = self.randColor() {
@@ -113,11 +112,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if !self.isScrollingAnimation {
-            if let visibleCells = self.tableView.indexPathsForVisibleRows() {
-                let index = visibleCells.count / 2
-                if let cellIndexPath = visibleCells.first as? NSIndexPath {
+            if let visibleCells = self.tableView.indexPathsForVisibleRows {
+                if let cellIndexPath = visibleCells.first {
                     let day = self.dateByIndex(cellIndexPath.row)
+                    let startTime = NSDate()
                     self.calendarView.selectDate(day)
+                    let delta = NSDate().timeIntervalSinceDate(startTime)
+                    print(delta)
                 }
             }
         }

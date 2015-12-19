@@ -15,6 +15,7 @@ public class MJDayView: MJComponentView {
             self.updateView()
         }
     }
+    var todayDate: NSDate!
     var label: UILabel!
     var borderView: UIView!
     var isSameMonth = true {
@@ -25,12 +26,13 @@ public class MJDayView: MJComponentView {
         }
     }
     
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     init(date: NSDate, delegate: MJComponentDelegate) {
         self.date = date
+        self.todayDate = NSDate().dateAtStartOfDay()
         super.init(delegate: delegate)
         self.setUpGesture()
         self.setUpBorderView()
@@ -92,7 +94,9 @@ public class MJDayView: MJComponentView {
     func setText() {
         self.label.font = self.delegate.getConfiguration().dayTextFont
         let text = "\(self.date.day)"
-        let isToday = NSDate().dateAtStartOfDay() == self.date.dateAtStartOfDay()
+        self.label.text = text
+        
+        let isToday = self.todayDate.timeIntervalSince1970 == self.date.timeIntervalSince1970
         if isToday {
             let underlineAttribute = [NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue]
             self.label.attributedText = NSAttributedString(string: text, attributes: underlineAttribute)
