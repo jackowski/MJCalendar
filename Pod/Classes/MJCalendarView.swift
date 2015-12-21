@@ -11,10 +11,10 @@ import NSDate_Escort
 import UIView_JMFrame
 
 public protocol MJCalendarViewDelegate {
-    func didChangePeriod(periodDate: NSDate, bySwipe: Bool, calendarView: MJCalendarView)
-    func didSelectDate(date: NSDate, calendarView: MJCalendarView)
-    func backgroundColorForDate(date: NSDate, calendarView: MJCalendarView) -> UIColor?
-    func textColorForDate(date: NSDate, calendarView: MJCalendarView) -> UIColor?
+    func calendar(calendarView: MJCalendarView, didChangePeriod periodDate: NSDate, bySwipe: Bool)
+    func calendar(calendarView: MJCalendarView, didSelectDate date: NSDate)
+    func calendar(calendarView: MJCalendarView, backgroundForDate date: NSDate) -> UIColor?
+    func calendar(calendarView: MJCalendarView, textColorForDate date: NSDate) -> UIColor?
 }
 
 public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
@@ -162,7 +162,7 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
             let periodDate = self.startDate(date, withOtherMonth: false)
             self.visiblePeriodDate = date.timeIntervalSince1970 < self.date.timeIntervalSince1970
                 ? self.retroPeriodDate(periodDate) : periodDate
-            self.calendarDelegate?.didChangePeriod(periodDate, bySwipe: false, calendarView: self)
+            self.calendarDelegate?.calendar(self, didChangePeriod: periodDate, bySwipe: false)
         }
         self.date = date
         self.setPeriodViews()
@@ -202,7 +202,7 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
     
     func didSelectDate(date: NSDate) {
         self.selectDate(date)
-        self.calendarDelegate?.didSelectDate(date, calendarView: self)
+        self.calendarDelegate?.calendar(self, didSelectDate: date)
     }
     
     func calendarIsBeingAnimated() -> Bool {
@@ -210,15 +210,14 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
     }
     
     func backgroundColorForDate(date: NSDate) -> UIColor? {
-        return self.calendarDelegate?.backgroundColorForDate(date, calendarView: self)
+        return self.calendarDelegate?.calendar(self, backgroundForDate: date)
     }
     
     func textColorForDate(date: NSDate) -> UIColor? {
-        return self.calendarDelegate?.textColorForDate(date, calendarView: self)
+        return self.calendarDelegate?.calendar(self, textColorForDate: date)
     }
     
     // MARK: UIScrollViewDelegate
-    
     
     public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         let pageWidth = CGRectGetWidth(scrollView.frame)
@@ -229,7 +228,7 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         if self.visiblePeriodDate !=  periodDate {
             self.visiblePeriodDate = periodDate
             self.setPeriodViews()
-            self.calendarDelegate?.didChangePeriod(periodDate, bySwipe: true, calendarView: self)
+            self.calendarDelegate?.calendar(self, didChangePeriod: periodDate, bySwipe: true)
             self.selectDate(periodDate)
         }
     }
@@ -327,8 +326,7 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
                     self.reloadView()
                     self.setPeriodFrames()
                 }
-                self.calendarDelegate?.didChangePeriod(self.visiblePeriodDate
-                    , bySwipe: false, calendarView: self)
+                self.calendarDelegate?.calendar(self, didChangePeriod: self.visiblePeriodDate, bySwipe: false)
                 
                 if let completionBlock = completion {
                     completionBlock(completed)

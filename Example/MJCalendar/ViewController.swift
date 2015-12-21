@@ -198,22 +198,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     //MARK: MJCalendarViewDelegate
-    func didChangePeriod(periodDate: NSDate, bySwipe: Bool, calendarView: MJCalendarView) {
+    func calendar(calendarView: MJCalendarView, didChangePeriod periodDate: NSDate, bySwipe: Bool) {
         self.setTitleWithDate(periodDate)
         if bySwipe {
             self.scrollTableViewToDate(periodDate)
         }
     }
     
-    func backgroundColorForDate(date: NSDate, calendarView: MJCalendarView) -> UIColor? {
+    func calendar(calendarView: MJCalendarView, backgroundForDate date: NSDate) -> UIColor? {
         return self.dayColors[date]?.backgroundColor
     }
     
-    func textColorForDate(date: NSDate, calendarView: MJCalendarView) -> UIColor? {
+    func calendar(calendarView: MJCalendarView, textColorForDate date: NSDate) -> UIColor? {
         return self.dayColors[date]?.textColor
     }
     
-    func didSelectDate(date: NSDate, calendarView: MJCalendarView) {
+    func calendar(calendarView: MJCalendarView, didSelectDate date: NSDate) {
         self.scrollTableViewToDate(date)
     }
 
