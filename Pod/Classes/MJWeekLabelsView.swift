@@ -11,7 +11,7 @@ import UIKit
 class MJWeekLabelsView: MJComponentView {
     var weekLabels: [UILabel] = []
     var dayWeekText: [String] {
-        if self.delegate.getConfiguration().startDayType == .Monday {
+        if self.delegate.configurationWithComponent(self).startDayType == .Monday {
             return [
                 "MON",
                 "TUE",
@@ -46,8 +46,8 @@ class MJWeekLabelsView: MJComponentView {
     func setUpView() {
         for i: Int in 0...6 {
             let label = UILabel()
-            label.font = self.delegate.getConfiguration().weekLabelFont
-            label.textColor = self.delegate.getConfiguration().weekLabelTextColor
+            label.font = self.delegate.configurationWithComponent(self).weekLabelFont
+            label.textColor = self.delegate.configurationWithComponent(self).weekLabelTextColor
             label.text = self.dayWeekText[i]
             label.textAlignment = .Center
             self.addSubview(label)
@@ -57,8 +57,8 @@ class MJWeekLabelsView: MJComponentView {
     
     func updateView() {
         for (index, weekLabel) in self.weekLabels.enumerate() {
-            weekLabel.font = self.delegate.getConfiguration().weekLabelFont
-            weekLabel.textColor = self.delegate.getConfiguration().weekLabelTextColor
+            weekLabel.font = self.delegate.configurationWithComponent(self).weekLabelFont
+            weekLabel.textColor = self.delegate.configurationWithComponent(self).weekLabelTextColor
             weekLabel.text = self.dayWeekText[index]
         }
     }

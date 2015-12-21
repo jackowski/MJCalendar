@@ -192,28 +192,28 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
     
     // MARK: Calendar delegate
     
-    func isDateSelected(date: NSDate) -> Bool {
+    func componentView(componentView: MJComponentView, isDateSelected date: NSDate) -> Bool {
         return self.date == date
     }
     
-    func getConfiguration() -> MJConfiguration {
+    func configurationWithComponent(componentView: MJComponentView) -> MJConfiguration {
         return self.configuration
     }
     
-    func didSelectDate(date: NSDate) {
+    func componentView(componentView: MJComponentView, didSelectDate date: NSDate) {
         self.selectDate(date)
         self.calendarDelegate?.calendar(self, didSelectDate: date)
     }
     
-    func calendarIsBeingAnimated() -> Bool {
+    func isBeingAnimatedWithComponentView(componentView: MJComponentView) -> Bool {
         return self.isAnimating
     }
     
-    func backgroundColorForDate(date: NSDate) -> UIColor? {
+    func componentView(componentView: MJComponentView, backgroundColorForDate date: NSDate) -> UIColor? {
         return self.calendarDelegate?.calendar(self, backgroundForDate: date)
     }
     
-    func textColorForDate(date: NSDate) -> UIColor? {
+    func componentView(componentView: MJComponentView, textColorForDate date: NSDate) -> UIColor? {
         return self.calendarDelegate?.calendar(self, textColorForDate: date)
     }
     

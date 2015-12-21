@@ -9,13 +9,12 @@
 import UIKit
 
 protocol MJComponentDelegate {
-    func getConfiguration() -> MJConfiguration
-    func isDateSelected(date: NSDate) -> Bool
-    func didSelectDate(date: NSDate)
-    func calendarIsBeingAnimated() -> Bool
-    
-    func backgroundColorForDate(date: NSDate) -> UIColor?
-    func textColorForDate(date: NSDate) -> UIColor?
+    func configurationWithComponent(componentView: MJComponentView) -> MJConfiguration
+    func componentView(componentView: MJComponentView, isDateSelected date: NSDate) -> Bool
+    func componentView(componentView: MJComponentView, didSelectDate date: NSDate)
+    func isBeingAnimatedWithComponentView(componentView: MJComponentView) -> Bool
+    func componentView(componentView: MJComponentView, backgroundColorForDate date: NSDate) -> UIColor?
+    func componentView(componentView: MJComponentView, textColorForDate date: NSDate) -> UIColor?
 }
 
 public class MJComponentView: UIView {

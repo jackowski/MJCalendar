@@ -46,7 +46,7 @@ public class MJDayView: MJComponentView {
     }
     
     func didTap() {
-        self.delegate.didSelectDate(self.date)
+        self.delegate.componentView(self, didSelectDate: self.date)
     }
     
     func setUpBorderView() {
@@ -67,16 +67,16 @@ public class MJDayView: MJComponentView {
             (self.height() - labelSize.height) / 2, labelSize.width, labelSize.height)
         self.label.frame = labelFrame
         
-        let dayViewSize = self.delegate.getConfiguration().dayViewSize
+        let dayViewSize = self.delegate.configurationWithComponent(self).dayViewSize
         let borderFrame = CGRectMake((self.width() - dayViewSize.width) / 2,
             (self.height() - dayViewSize.height) / 2, dayViewSize.width, dayViewSize.height)
         self.borderView.frame = borderFrame
     }
     
     func labelSize() -> CGSize {
-        let dayViewSize = self.delegate.getConfiguration().dayViewSize
-        let borderSize = self.delegate.getConfiguration().selectedBorderWidth
-        let labelSize = self.delegate.getConfiguration().selectedDayType == .Filled
+        let dayViewSize = self.delegate.configurationWithComponent(self).dayViewSize
+        let borderSize = self.delegate.configurationWithComponent(self).selectedBorderWidth
+        let labelSize = self.delegate.configurationWithComponent(self).selectedDayType == .Filled
             ? dayViewSize
             : CGSizeMake(dayViewSize.width - 2 * borderSize, dayViewSize.height - 2 * borderSize)
         return labelSize
@@ -92,7 +92,7 @@ public class MJDayView: MJComponentView {
     }
     
     func setText() {
-        self.label.font = self.delegate.getConfiguration().dayTextFont
+        self.label.font = self.delegate.configurationWithComponent(self).dayTextFont
         let text = "\(self.date.day)"
         self.label.text = text
         
@@ -106,54 +106,54 @@ public class MJDayView: MJComponentView {
     }
     
     func setShape() {
-        let labelCornerRadius = self.delegate.getConfiguration().dayViewType == .Circle
+        let labelCornerRadius = self.delegate.configurationWithComponent(self).dayViewType == .Circle
             ? self.labelSize().width / 2
             : 0
         self.label.layer.cornerRadius = labelCornerRadius
-        let borderCornerRadius = self.delegate.getConfiguration().dayViewSize.width / 2
+        let borderCornerRadius = self.delegate.configurationWithComponent(self).dayViewSize.width / 2
         self.borderView.layer.cornerRadius = borderCornerRadius
     }
     
     func setViewBackgrounds() {
         if self.isSameMonth {
-            self.backgroundColor = self.delegate.getConfiguration().dayBackgroundColor
+            self.backgroundColor = self.delegate.configurationWithComponent(self).dayBackgroundColor
         } else {
-            self.backgroundColor = self.delegate.getConfiguration().otherMonthBackgroundColor
+            self.backgroundColor = self.delegate.configurationWithComponent(self).otherMonthBackgroundColor
         }
     }
     
     func setTextColors() {
-        if self.delegate.isDateSelected(self.date)
-            && self.delegate.getConfiguration().selectedDayType == .Filled {
-            self.label.textColor = self.delegate.getConfiguration().selectedDayTextColor
+        if self.delegate.componentView(self, isDateSelected: self.date)
+            && self.delegate.configurationWithComponent(self).selectedDayType == .Filled {
+            self.label.textColor = self.delegate.configurationWithComponent(self).selectedDayTextColor
         } else if self.isSameMonth {
-            if let textColor = self.delegate.textColorForDate(self.date) {
+            if let textColor = self.delegate.componentView(self, textColorForDate: self.date) {
                 self.label.textColor = textColor
             } else {
-                self.label.textColor = self.delegate.getConfiguration().dayTextColor
+                self.label.textColor = self.delegate.configurationWithComponent(self).dayTextColor
             }
         } else {
-            self.label.textColor = self.delegate.getConfiguration().otherMonthTextColor
+            self.label.textColor = self.delegate.configurationWithComponent(self).otherMonthTextColor
         }
     }
     
     func setBackgrounds() {
-        if self.delegate.isDateSelected(self.date)
-            && self.delegate.getConfiguration().selectedDayType == .Filled {
-            self.label.backgroundColor = self.delegate.getConfiguration().selectedDayBackgroundColor
-        } else if let backgroundColor = self.delegate.backgroundColorForDate(self.date) {
+        if self.delegate.componentView(self, isDateSelected: self.date)
+            && self.delegate.configurationWithComponent(self).selectedDayType == .Filled {
+            self.label.backgroundColor = self.delegate.configurationWithComponent(self).selectedDayBackgroundColor
+        } else if let backgroundColor = self.delegate.componentView(self, backgroundColorForDate: self.date) {
             self.label.backgroundColor = self.isSameMonth
                 ? backgroundColor
-                : self.delegate.getConfiguration().otherMonthBackgroundColor
+                : self.delegate.configurationWithComponent(self).otherMonthBackgroundColor
         } else {
             self.label.backgroundColor = self.isSameMonth
-                ? self.delegate.getConfiguration().dayBackgroundColor
-                : self.delegate.getConfiguration().otherMonthBackgroundColor
+                ? self.delegate.configurationWithComponent(self).dayBackgroundColor
+                : self.delegate.configurationWithComponent(self).otherMonthBackgroundColor
         }
     }
     
     func setBorder() {
-        self.borderView.backgroundColor = self.delegate.getConfiguration().selectedDayBackgroundColor
-        self.borderView.hidden = !self.delegate.isDateSelected(self.date)
+        self.borderView.backgroundColor = self.delegate.configurationWithComponent(self).selectedDayBackgroundColor
+        self.borderView.hidden = !self.delegate.componentView(self, isDateSelected: self.date)
     }
 }
