@@ -111,7 +111,7 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
     }
     
     func periodHeight(periodType: MJConfiguration.PeriodType) -> CGFloat {
-        return CGFloat(periodType.weeksCount()) * self.configuration.lineHeight
+        return CGFloat(periodType.weeksCount()) * self.configuration.rowHeight
     }
     
     func startDate(date: NSDate, withOtherMonth: Bool) -> NSDate {
@@ -244,7 +244,7 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         }
     }
     
-    public func commitConfiguration() {
+    public func reloadView() {
         self.visiblePeriodDate = self.recalculatedVisibleDate(false)
         
         if let periodViews = self.periods {
@@ -290,7 +290,7 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         let yDelta = self.periodYDelta(periodType, previousVisibleDate: previousVisibleDate)
         
         if periodType.weeksCount() > previousPeriodType.weeksCount() {
-            self.commitConfiguration()
+            self.reloadView()
             self.layoutIfNeeded()
             
             self.currentPeriod().setY(self.currentPeriod().y() + yDelta)
@@ -306,7 +306,7 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         let visiblePeriodDatePreview = self.recalculatedVisibleDate(true)
         let deltaVisiblePeriod = visiblePeriodDatePreview.timeIntervalSince1970 - previousVisibleDate.timeIntervalSince1970
         let weekIndexDelta = ceil(deltaVisiblePeriod / (3600 * 24 * 7))
-        return CGFloat(weekIndexDelta) * self.configuration.lineHeight
+        return CGFloat(weekIndexDelta) * self.configuration.rowHeight
     }
     
     func performAnimation(animateToBiggerSize: Bool, periodType: MJConfiguration.PeriodType, yDelta: CGFloat, duration: NSTimeInterval, animations: (calendarHeight: CGFloat) -> Void, completion: ((Bool) -> Void)?) {
@@ -324,7 +324,7 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
             }) { (completed) -> Void in
                 self.isAnimating = false
                 if !animateToBiggerSize {
-                    self.commitConfiguration()
+                    self.reloadView()
                     self.setPeriodFrames()
                 }
                 self.calendarDelegate?.didChangePeriod(self.visiblePeriodDate

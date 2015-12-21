@@ -30,3 +30,13 @@ public class MJComponentView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+extension NSDate {
+    func dateByAddingEfficientlyDays(days: Int) -> NSDate {
+        
+        let dayTimeInterval: NSTimeInterval = 86400
+        return self.dateByAddingTimeInterval(dayTimeInterval * Double(days))
+
+        //return self.dateByAddingDays(days)
+    }
+}

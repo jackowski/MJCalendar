@@ -34,13 +34,13 @@ public class MJPeriodView: MJComponentView {
     func configureViews() {
         if let weekViews = self.weeks {
             for i in 1...self.numberOfWeeks {
-                let weekDate = self.date!.dateByAddingDays((i-1) * 7) //self.date! + (i - 1).weeks
+                let weekDate = self.date!.dateByAddingEfficientlyDays((i-1) * 7)
                 weekViews[i - 1].date = weekDate
             }
         } else {
             self.weeks = []
             for i in 1...self.numberOfWeeks {
-                let weekDate = self.date!.dateByAddingDays((i-1) * 7) //self.date! + (i - 1).weeks
+                let weekDate = self.date!.dateByAddingEfficientlyDays((i-1) * 7)
                 let weekView = MJWeekView(date: weekDate, delegate: self.delegate!)
                 self.addSubview(weekView)
                 self.weeks!.append(weekView)
@@ -65,7 +65,7 @@ public class MJPeriodView: MJComponentView {
     
     override public func layoutSubviews() {
         for (index, week) in (self.weeks!).enumerate() {
-            let lineHeight = self.delegate.getConfiguration().lineHeight
+            let lineHeight = self.delegate.getConfiguration().rowHeight
             week.frame = CGRectMake(0, CGFloat(index) * lineHeight, self.width(), lineHeight)
         }
     }

@@ -30,13 +30,13 @@ public class MJWeekView: MJComponentView {
     func configureViews() {
         if let dayViews = self.days {
             for i in 1...7 {
-                let dayDate = self.date!.dateByAddingDays(i-1)
+                let dayDate = self.date!.dateByAddingEfficientlyDays(i-1)
                 dayViews[i - 1].date = dayDate
             }
         } else {
             self.days = []
             for i in 1...7 {
-                let dayDate = self.date!.dateByAddingDays(i-1)
+                let dayDate = self.date!.dateByAddingEfficientlyDays(i-1)
                 let dayView = MJDayView(date: dayDate, delegate: self.delegate!)
                 self.addSubview(dayView)
                 self.days!.append(dayView)

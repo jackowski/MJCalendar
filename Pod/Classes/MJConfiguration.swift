@@ -38,7 +38,7 @@ public struct MJConfiguration {
     public var startDayType: StartDayType = .Monday
     public var selectedDayType: SelectedDayType = .Border
     
-    public var lineHeight: CGFloat = 30
+    public var rowHeight: CGFloat = 30
     public var dayViewSize: CGSize = CGSizeMake(24, 24)
     public var dayTextFont = UIFont.systemFontOfSize(12)
     
