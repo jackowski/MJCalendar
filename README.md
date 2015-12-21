@@ -5,6 +5,9 @@
 [![License](https://img.shields.io/cocoapods/l/MJCalendar.svg?style=flat)](http://cocoapods.org/pods/MJCalendar)
 [![Platform](https://img.shields.io/cocoapods/p/MJCalendar.svg?style=flat)](http://cocoapods.org/pods/MJCalendar)
 
+##Demo GIF##
+![Demo](https://bitbucket.org/repo/R6rdXA/images/3738903453-MJout.gif)
+
 ## Usage
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
