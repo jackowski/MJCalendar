@@ -12,6 +12,16 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
+## Installation
+
+MJCalendar is available through [CocoaPods](http://cocoapods.org). To install
+it, simply add the following line to your Podfile:
+
+```ruby
+pod "MJCalendar"
+```
+
+
 ## Customization ##
 
 ```
@@ -120,18 +130,57 @@ func calendar(calendarView: MJCalendarView, didSelectDate date: NSDate) {
 }
 
 ```
+
+## Public methods
+
+To select date from code use method selectDate. Usage example.
+
+```
+#!swift
+func scrollViewDidScroll(scrollView: UIScrollView) {
+    // Prevent changing selected day when non user scroll is triggered.
+    if !self.isScrollingAnimation {
+        // Get all visible cells from tableview
+        if let visibleCells = self.tableView.indexPathsForVisibleRows {
+            if let cellIndexPath = visibleCells.first {
+                // Get day by indexPath
+                let day = self.dateByIndex(cellIndexPath.row)
+                
+                //Select day according to first visible cell in tableview
+                self.calendarView.selectDate(day)
+            }
+        }
+    }
+}
+
+```
+
+To change displayed period on runtime use method animateToPeriod. 
+Method params:
+
+- periodType: available types: Month, ThreeWeeks, TwoWeeks, OneWeek. If type is same as one already displayed no animation is being performed.
+- duration: duration of animation in seconds
+- animation block: optional block to add custom animation while period is being animated
+Usage example.
+
+
+```
+#!swift    
+self.calendarView.animateToPeriodType(period, duration: 0.2, animations: { (calendarHeight) -> Void in
+    // In animation block you can add your own animation. To adapat UI to new calendar height you can use calendarHeight param
+    self.calendarViewHeight.constant = calendarHeight
+    self.view.layoutIfNeeded()
+}, completion: nil)
+
+
+```
+
  
 
 ## Requirements
 
-## Installation
+Xcode 7+, Swift 2.0+
 
-MJCalendar is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```ruby
-pod "MJCalendar"
-```
 
 ## Author
 
