@@ -199,8 +199,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     //MARK: MJCalendarViewDelegate
     func calendar(calendarView: MJCalendarView, didChangePeriod periodDate: NSDate, bySwipe: Bool) {
+        // Sets month name according to presented dates
         self.setTitleWithDate(periodDate)
+        
+        // bySwipe diffrentiate changes made from swipes or select date method
         if bySwipe {
+            // Scroll to relevant date in tableview
             self.scrollTableViewToDate(periodDate)
         }
     }
