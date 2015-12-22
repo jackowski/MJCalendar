@@ -155,14 +155,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
+        // Prevent changing selected day when non user scroll is triggered.
         if !self.isScrollingAnimation {
+            // Get all visible cells from tableview
             if let visibleCells = self.tableView.indexPathsForVisibleRows {
                 if let cellIndexPath = visibleCells.first {
+                    // Get day by indexPath
                     let day = self.dateByIndex(cellIndexPath.row)
-                    let startTime = NSDate()
+                    
+                    //Select day according to first visible cell in tableview
                     self.calendarView.selectDate(day)
-                    let delta = NSDate().timeIntervalSinceDate(startTime)
-                    print(delta)
                 }
             }
         }
@@ -240,7 +242,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func animateToPeriod(period: MJConfiguration.PeriodType) {
         self.tableView.setContentOffset(self.tableView.contentOffset, animated: false)
+        
         self.calendarView.animateToPeriodType(period, duration: 0.2, animations: { (calendarHeight) -> Void in
+            // In animation block you can add your own animation. To adapat UI to new calendar height you can use calendarHeight param
             self.calendarViewHeight.constant = calendarHeight
             self.view.layoutIfNeeded()
         }, completion: nil)
