@@ -75,6 +75,53 @@ self.calendarView.reloadView()
 
 ```
 
+## Delegates
+
+Apart from setting colors in calendar configuration, it might be set in delegates methods.
+Returning nil means that the color from configuration will be displayed. 
+
+```
+#!swift
+
+func calendar(calendarView: MJCalendarView, textColorForDate date: NSDate) -> UIColor? {
+    return self.dayColors[date]?.textColor
+}
+
+func calendar(calendarView: MJCalendarView, backgroundForDate date: NSDate) -> UIColor? {
+    return self.dayColors[date]?.backgroundColor
+}
+
+```
+
+Once displayed period of time is changed either by left right swipe or by select date method, method didChangePeriod is triggered. Usage example.
+
+```
+#!swift
+
+func calendar(calendarView: MJCalendarView, didChangePeriod periodDate: NSDate, bySwipe: Bool) {
+    // Sets month name according to presented dates
+    self.setTitleWithDate(periodDate)
+    
+    // bySwipe diffrentiate changes made from swipes or select date method
+    if bySwipe {
+        // Scroll to relevant date in tableview
+        self.scrollTableViewToDate(periodDate)
+    }
+}
+
+```
+
+When user selects date by tapping on particular day, method didSelectDate is triggered. Usage example.
+
+```
+#!swift
+func calendar(calendarView: MJCalendarView, didSelectDate date: NSDate) {
+    self.scrollTableViewToDate(date)
+}
+
+```
+ 
+
 ## Requirements
 
 ## Installation
