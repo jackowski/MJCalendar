@@ -30,12 +30,10 @@ public class MJComponentView: UIView {
     }
 }
 
+/*
 extension NSDate {
     func dateByAddingEfficientlyDays(days: Int) -> NSDate {
-        
-        let dayTimeInterval: NSTimeInterval = 86400
-        return self.dateByAddingTimeInterval(dayTimeInterval * Double(days))
-
-        //return self.dateByAddingDays(days)
+        return self.dateByAddingDays(days)
     }
 }
+*/
