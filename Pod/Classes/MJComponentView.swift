@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol MJComponentDelegate {
+protocol MJComponentDelegate: NSObjectProtocol {
     func configurationWithComponent(componentView: MJComponentView) -> MJConfiguration
     func componentView(componentView: MJComponentView, isDateSelected date: NSDate) -> Bool
     func componentView(componentView: MJComponentView, didSelectDate date: NSDate)
@@ -18,7 +18,7 @@ protocol MJComponentDelegate {
 }
 
 public class MJComponentView: UIView {
-    var delegate: MJComponentDelegate!
+    weak var delegate: MJComponentDelegate!
     
     init(delegate: MJComponentDelegate) {
         self.delegate = delegate

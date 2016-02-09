@@ -10,7 +10,7 @@ import UIKit
 import NSDate_Escort
 import UIView_JMFrame
 
-public protocol MJCalendarViewDelegate {
+public protocol MJCalendarViewDelegate: NSObjectProtocol {
     func calendar(calendarView: MJCalendarView, didChangePeriod periodDate: NSDate, bySwipe: Bool)
     func calendar(calendarView: MJCalendarView, didSelectDate date: NSDate)
     func calendar(calendarView: MJCalendarView, backgroundForDate date: NSDate) -> UIColor?
@@ -27,7 +27,7 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
     var visiblePeriodDate: NSDate!
     var currentFrame = CGRectZero
     var currentPage = 1
-    public var calendarDelegate: MJCalendarViewDelegate?
+    weak public var calendarDelegate: MJCalendarViewDelegate?
     var isAnimating = false
     
     required public init?(coder aDecoder: NSCoder) {
