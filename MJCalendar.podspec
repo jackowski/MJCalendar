@@ -9,21 +9,19 @@
 Pod::Spec.new do |s|
   s.name             = "MJCalendar"
   s.version          = "0.1.0"
-  s.summary          = "A short description of MJCalendar."
+  s.summary          = "Very customizable calendar component. Supports month, 3 week, 2 week and 1 week view."
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
 #   * Try to keep it short, snappy and to the point.
 #   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!  
-  s.description      = <<-DESC
-                       DESC
+#   * Finally, don't worry about the indent, CocoaPods strips it!
 
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/MJCalendar"
+  s.homepage         = "https://github.com/jackowski/MJCalendar"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "Michał Jackowski" => "mk.jackowski@gmail.com" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/MJCalendar.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/jackowski/MJCalendar.git", :tag => s.version }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.platform     = :ios, '8.0'
