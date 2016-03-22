@@ -77,4 +77,26 @@ public class MJPeriodView: MJComponentView {
     public func endingDate() -> NSDate {
         return self.weeks!.last!.days!.last!.date!
     }
+    
+    public func startingPeriodDate() -> NSDate {
+        if self.delegate.configurationWithComponent(self).periodType == .Month {
+            let middleDate = self.weeks![3].date
+            return middleDate.dateAtStartOfMonth()
+        } else {
+            return startingDate()
+        }
+    }
+    
+    public func endingPeriodDate() -> NSDate {
+        if self.delegate.configurationWithComponent(self).periodType == .Month {
+            let middleDate = self.weeks![3].date
+            return middleDate.dateAtEndOfMonth()
+        } else {
+            return endingDate()
+        }
+    }
+    
+    public func isDateInPeriod(date: NSDate) -> Bool {
+        return date.isLaterThanOrEqualDate(startingPeriodDate()) && date.isEarlierThanOrEqualDate(endingPeriodDate())
+    }
 }

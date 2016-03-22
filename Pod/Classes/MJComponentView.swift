@@ -15,6 +15,7 @@ protocol MJComponentDelegate: NSObjectProtocol {
     func isBeingAnimatedWithComponentView(componentView: MJComponentView) -> Bool
     func componentView(componentView: MJComponentView, backgroundColorForDate date: NSDate) -> UIColor?
     func componentView(componentView: MJComponentView, textColorForDate date: NSDate) -> UIColor?
+    func isDateOutOfRange(componentView: MJComponentView, date: NSDate) -> Bool
 }
 
 public class MJComponentView: UIView {

@@ -58,6 +58,12 @@ public struct MJConfiguration {
     public var weekLabelTextColor = UIColor.whiteColor()
     public var weekLabelHeight: CGFloat = 25
     
+    public var minDate: NSDate?
+    public var maxDate: NSDate?
+    
+    public var outOfRangeDayBackgroundColor = UIColor.whiteColor()
+    public var outOfRangeDayTextColor = UIColor.blackColor()
+    
     static func getDefault() -> MJConfiguration {
         let configuration = MJConfiguration()
         return configuration
