@@ -29,20 +29,6 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
     weak public var calendarDelegate: MJCalendarViewDelegate?
     var isAnimating = false
     
-    /*
-    var currentPage: Int {
-        if let periods = self.periods {
-            for (index, period) in periods.enumerate() {
-                if period.isDateInPeriod(self.visiblePeriodDate) {
-                    return index
-                }
-            }
-        }
-        
-        return 0
-    }
-    */
-    
     var currentPage: Int!
     
     required public init?(coder aDecoder: NSCoder) {

@@ -46,7 +46,9 @@ public class MJDayView: MJComponentView {
     }
     
     func didTap() {
-        self.delegate.componentView(self, didSelectDate: self.date)
+        if !self.delegate.isDateOutOfRange(self, date: self.date) {
+            self.delegate.componentView(self, didSelectDate: self.date)
+        }
     }
     
     func setUpBorderView() {
