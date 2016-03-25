@@ -144,7 +144,6 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
             
             let weekLabelsViewHeight = self.configuration.weekLabelHeight
             self.periodsContainerView!.frame = CGRectMake(0, weekLabelsViewHeight, self.width(), self.height() - weekLabelsViewHeight)
-            self.periodsContainerView!.contentSize = CGSizeMake(self.width() * CGFloat(self.periods!.count), self.height() - weekLabelsViewHeight)
             
             self.setPeriodFrames()
         }
@@ -161,6 +160,7 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
             period.frame = CGRectMake(CGFloat(index) * self.width() + x, 0, width, self.periodHeight(self.configuration.periodType))
         }
         
+        self.periodsContainerView!.contentSize = CGSizeMake(self.width() * CGFloat(self.periods!.count), self.height() - self.configuration.weekLabelHeight)
         self.periodsContainerView!.contentOffset.x = CGRectGetWidth(self.frame) * CGFloat(self.currentPage)
     }
     
