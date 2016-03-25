@@ -13,6 +13,7 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		951B92E51CA5E55D0053F6FF /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951B92E41CA5E55D0053F6FF /* DatePickerViewController.swift */; };
 		959265961BE97699008909B1 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959265951BE97699008909B1 /* TableViewCell.swift */; };
 		A618D55D23E2DB322017F140 /* Pods_MJCalendar_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16CE52D412BC52800F248335 /* Pods_MJCalendar_Tests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		EE58300A57310D7E87B6B7CC /* Pods_MJCalendar_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4CAE807CACE85338187F17E /* Pods_MJCalendar_Example.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -45,6 +46,7 @@
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		6C20A2CDABD3CA82F758989E /* Pods-MJCalendar_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJCalendar_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MJCalendar_Tests/Pods-MJCalendar_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		951B92E41CA5E55D0053F6FF /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		959265951BE97699008909B1 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		9F117C80AC38B523FB9856F6 /* Pods-MJCalendar_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJCalendar_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MJCalendar_Tests/Pods-MJCalendar_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		D4CAE807CACE85338187F17E /* Pods_MJCalendar_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MJCalendar_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,6 +99,7 @@
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
+				951B92E41CA5E55D0053F6FF /* DatePickerViewController.swift */,
 				959265951BE97699008909B1 /* TableViewCell.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
@@ -363,6 +366,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				951B92E51CA5E55D0053F6FF /* DatePickerViewController.swift in Sources */,
 				959265961BE97699008909B1 /* TableViewCell.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,

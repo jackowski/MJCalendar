@@ -101,6 +101,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Set height of week's days names view
         self.calendarView.configuration.weekLabelHeight = 25
         
+        /*
         //Set min date
         self.calendarView.configuration.minDate = NSDate().dateBySubtractingDays(30)
         
@@ -109,7 +110,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         self.calendarView.configuration.outOfRangeDayBackgroundColor = UIColor(hexString: "E7E7E7")
         self.calendarView.configuration.outOfRangeDayTextColor = UIColor(hexString: "6f787c")
-
+        */
         // To commit all configuration changes execute reloadView method
         self.calendarView.reloadView()
     }
