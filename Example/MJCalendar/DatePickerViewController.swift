@@ -81,13 +81,15 @@ class DatePickerViewController: UIViewController, MJCalendarViewDelegate {
         
         
         //Set min date
-        self.calendarView.configuration.minDate = NSDate().dateBySubtractingDays(30)
+        self.calendarView.configuration.minDate = NSDate().dateBySubtractingDays(60)
         
         //Set max date
-        self.calendarView.configuration.maxDate = NSDate().dateByAddingDays(20)
+        self.calendarView.configuration.maxDate = NSDate().dateByAddingDays(60)
         
         self.calendarView.configuration.outOfRangeDayBackgroundColor = UIColor(hexString: "E7E7E7")
         self.calendarView.configuration.outOfRangeDayTextColor = UIColor(hexString: "6f787c")
+        
+        self.calendarView.configuration.selectDayOnPeriodChange = false
         
         // To commit all configuration changes execute reloadView method
         self.calendarView.reloadView()

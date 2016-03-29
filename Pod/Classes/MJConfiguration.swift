@@ -33,7 +33,7 @@ public struct MJConfiguration {
         case Filled, Border
     }
     
-    public var periodType: PeriodType = .TwoWeeks
+    public var periodType: PeriodType = .Month
     public var dayViewType: DayViewType = .Circle
     public var startDayType: StartDayType = .Monday
     public var selectedDayType: SelectedDayType = .Border
@@ -63,6 +63,8 @@ public struct MJConfiguration {
     
     public var outOfRangeDayBackgroundColor = UIColor.whiteColor()
     public var outOfRangeDayTextColor = UIColor.blackColor()
+    
+    public var selectDayOnPeriodChange: Bool = true
     
     static func getDefault() -> MJConfiguration {
         let configuration = MJConfiguration()

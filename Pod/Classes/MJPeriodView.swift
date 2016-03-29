@@ -79,7 +79,8 @@ public class MJPeriodView: MJComponentView {
     }
     
     public func startingPeriodDate() -> NSDate {
-        if self.delegate.configurationWithComponent(self).periodType == .Month {
+        let monthCount = MJConfiguration.PeriodType.Month.weeksCount()
+        if self.weeks?.count == monthCount {
             let middleDate = self.weeks![3].date
             return middleDate.dateAtStartOfMonth()
         } else {
@@ -88,7 +89,8 @@ public class MJPeriodView: MJComponentView {
     }
     
     public func endingPeriodDate() -> NSDate {
-        if self.delegate.configurationWithComponent(self).periodType == .Month {
+        let monthCount = MJConfiguration.PeriodType.Month.weeksCount()
+        if self.weeks?.count == monthCount {
             let middleDate = self.weeks![3].date
             return middleDate.dateAtEndOfMonth()
         } else {
