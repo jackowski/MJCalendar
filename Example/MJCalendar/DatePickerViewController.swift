@@ -35,10 +35,7 @@ class DatePickerViewController: UIViewController, MJCalendarViewDelegate {
         // Set selected day display type. Available types:
         // Border - Only border is colored with selected day color
         // Filled - Entire day view is filled with selected day color
-        self.calendarView.configuration.selectedDayType = .Border
-        
-        // Set width of selected day border. Relevant only if selectedDayType = .Border
-        self.calendarView.configuration.selectedBorderWidth = 1
+        self.calendarView.configuration.selectedDayType = .Filled
         
         // Set day text color
         self.calendarView.configuration.dayTextColor = UIColor(hexString: "6f787c")
@@ -50,7 +47,7 @@ class DatePickerViewController: UIViewController, MJCalendarViewDelegate {
         self.calendarView.configuration.selectedDayTextColor = UIColor.whiteColor()
         
         // Set selected day background color
-        self.calendarView.configuration.selectedDayBackgroundColor = UIColor(hexString: "6f787c")
+        self.calendarView.configuration.selectedDayBackgroundColor = UIColor(hexString: "2FBD8F")
         
         // Set other month day text color. Relevant only if periodType = .Month
         self.calendarView.configuration.otherMonthTextColor = UIColor(hexString: "6f787c")
