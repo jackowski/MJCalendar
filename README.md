@@ -24,9 +24,8 @@ pod "MJCalendar"
 
 ## Customization ##
 
-```
-#!swift
 
+```swift
 // Set displayed period type. Available types: Month, ThreeWeeks, TwoWeeks, OneWeek
 self.calendarView.configuration.periodType = .Month
 
@@ -82,7 +81,6 @@ self.calendarView.configuration.weekLabelHeight = 25
 
 // To commit all configuration changes execute reloadView method
 self.calendarView.reloadView()
-
 ```
 
 ## Delegates
@@ -90,9 +88,8 @@ self.calendarView.reloadView()
 Apart from setting colors in calendar configuration, it might be set in delegates methods.
 Returning nil means that the color from configuration will be displayed. 
 
-```
-#!swift
 
+```swift
 func calendar(calendarView: MJCalendarView, textColorForDate date: NSDate) -> UIColor? {
     return self.dayColors[date]?.textColor
 }
@@ -100,14 +97,12 @@ func calendar(calendarView: MJCalendarView, textColorForDate date: NSDate) -> UI
 func calendar(calendarView: MJCalendarView, backgroundForDate date: NSDate) -> UIColor? {
     return self.dayColors[date]?.backgroundColor
 }
-
 ```
 
 Once displayed period of time is changed either by left right swipe or by select date method, method didChangePeriod is triggered. Usage example.
 
-```
-#!swift
 
+```swift
 func calendar(calendarView: MJCalendarView, didChangePeriod periodDate: NSDate, bySwipe: Bool) {
     // Sets month name according to presented dates
     self.setTitleWithDate(periodDate)
@@ -118,13 +113,12 @@ func calendar(calendarView: MJCalendarView, didChangePeriod periodDate: NSDate, 
         self.scrollTableViewToDate(periodDate)
     }
 }
-
 ```
 
 When user selects date by tapping on particular day, method didSelectDate is triggered. Usage example.
 
-```
-#!swift
+
+```swift
 func calendar(calendarView: MJCalendarView, didSelectDate date: NSDate) {
     self.scrollTableViewToDate(date)
 }
@@ -135,8 +129,8 @@ func calendar(calendarView: MJCalendarView, didSelectDate date: NSDate) {
 
 To select date from code use method selectDate. Usage example.
 
-```
-#!swift
+
+```swift
 func scrollViewDidScroll(scrollView: UIScrollView) {
     // Prevent changing selected day when non user scroll is triggered.
     if !self.isScrollingAnimation {
@@ -152,7 +146,6 @@ func scrollViewDidScroll(scrollView: UIScrollView) {
         }
     }
 }
-
 ```
 
 To change displayed period on runtime use method animateToPeriod. 
@@ -164,15 +157,13 @@ Method params:
 Usage example.
 
 
-```
-#!swift    
+
+```swift    
 self.calendarView.animateToPeriodType(period, duration: 0.2, animations: { (calendarHeight) -> Void in
     // In animation block you can add your own animation. To adapat UI to new calendar height you can use calendarHeight param
     self.calendarViewHeight.constant = calendarHeight
     self.view.layoutIfNeeded()
 }, completion: nil)
-
-
 ```
 
  
