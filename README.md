@@ -5,9 +5,6 @@
 [![License](https://img.shields.io/cocoapods/l/MJCalendar.svg?style=flat)](http://cocoapods.org/pods/MJCalendar)
 [![Platform](https://img.shields.io/cocoapods/p/MJCalendar.svg?style=flat)](http://cocoapods.org/pods/MJCalendar)
 
-##Demo GIF##
-![Demo](demo.gif)
-
 ## Usage
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
@@ -21,6 +18,11 @@ it, simply add the following line to your Podfile:
 pod "MJCalendar"
 ```
 
+##Calendar View##
+<img src="Screenshots/calendar_month.png" width="425">
+<img src="Screenshots/calendar_three_weeks.png" width="425">
+<img src="Screenshots/calendar_two_weeks.png" width="425">
+<img src="Screenshots/calendar_one_week.png" width="425">
 
 ## Customization ##
 
