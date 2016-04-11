@@ -120,7 +120,7 @@ Variables `minDate` and `maxDate` from `MJConfiguration` are responsible for set
 
 ## Public methods
 
-To select date from code use method selectDate. Usage example.
+To select date from code use method `selectDate`. Usage example.
 
 
 ```swift
@@ -141,15 +141,15 @@ func scrollViewDidScroll(scrollView: UIScrollView) {
 }
 ```
 
+## Period change animations
+
 To change displayed period on runtime use method animateToPeriod. 
 Method params:
 
-- periodType: available types: Month, ThreeWeeks, TwoWeeks, OneWeek. If type is same as one already displayed no animation is being performed.
+- periodType: available types: `Month`, `ThreeWeeks`, `TwoWeeks`, `OneWeek`. If type is same as one already displayed no animation is being performed.
 - duration: duration of animation in seconds
 - animation block: optional block to add custom animation while period is being animated
 Usage example.
-
-
 
 ```swift    
 self.calendarView.animateToPeriodType(period, duration: 0.2, animations: { (calendarHeight) -> Void in
@@ -158,8 +158,7 @@ self.calendarView.animateToPeriodType(period, duration: 0.2, animations: { (cale
     self.view.layoutIfNeeded()
 }, completion: nil)
 ```
-
- 
+<img src="Screenshots/animation.gif" width="400">
 
 ## Requirements
 
