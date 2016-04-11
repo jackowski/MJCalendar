@@ -111,6 +111,13 @@ func calendar(calendarView: MJCalendarView, didSelectDate date: NSDate) {
 
 ```
 
+## Date Range
+Variables `minDate` and `maxDate` from `MJConfiguration` are responsible for setting range of available dates. To define UI use properties: `outOfRangeDayBackgroundColor`, `outOfRangeDayTextColor`.
+
+<img src="Screenshots/date_picker_march.png" width="280">
+<img src="Screenshots/date_picker_april.png" width="280">
+<img src="Screenshots/date_picker_may.png" width="280">
+
 ## Public methods
 
 To select date from code use method selectDate. Usage example.
