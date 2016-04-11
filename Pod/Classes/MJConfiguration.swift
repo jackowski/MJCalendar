@@ -44,25 +44,25 @@ public struct MJConfiguration {
     
     public var otherMonthBackgroundColor = UIColor.clearColor()
     public var otherMonthDayViewBackgroundColor = UIColor.clearColor()
-    public var otherMonthTextColor = UIColor.whiteColor()
+    public var otherMonthTextColor = UIColor.clearColor()
     
-    public var dayBackgroundColor = UIColor.blueColor()
-    public var dayDayViewBackgroundColor = UIColor.whiteColor()
-    public var dayTextColor = UIColor.whiteColor()
+    public var dayBackgroundColor = UIColor.clearColor()
+    public var dayDayViewBackgroundColor = UIColor.clearColor()
+    public var dayTextColor = UIColor.clearColor()
     
-    public var selectedDayBackgroundColor = UIColor.whiteColor()
-    public var selectedDayTextColor = UIColor.redColor()
+    public var selectedDayBackgroundColor = UIColor.clearColor()
+    public var selectedDayTextColor = UIColor.clearColor()
     public var selectedBorderWidth: CGFloat = 1
     
     public var weekLabelFont = UIFont.systemFontOfSize(12)
-    public var weekLabelTextColor = UIColor.whiteColor()
+    public var weekLabelTextColor = UIColor.clearColor()
     public var weekLabelHeight: CGFloat = 25
     
     public var minDate: NSDate?
     public var maxDate: NSDate?
     
-    public var outOfRangeDayBackgroundColor = UIColor.whiteColor()
-    public var outOfRangeDayTextColor = UIColor.blackColor()
+    public var outOfRangeDayBackgroundColor = UIColor.clearColor()
+    public var outOfRangeDayTextColor = UIColor.clearColor()
     
     public var selectDayOnPeriodChange: Bool = true
     
