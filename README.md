@@ -40,32 +40,32 @@ self.calendarView.reloadView()
 
 ## Configuration
 
-| Key | Type  | Default value  | Notes |
-|:-------------------------------------------------:|:---------------------------:|:----------------------------:|:----------------------------:|
-| periodType | enum [.Month, .ThreeWeeks, .TwoWeeks, .OneWeek] | .Month | |
-| dayViewType | enum [.Square, .Circle] | .Circle | |
-| startDayType | enum [.Monday, .Sunday] | .Monday | |
-| selectedDayType | enum [.Filled, .Border] | .Border | |
-| rowHeight | CGFloat | 30 | |
-| dayViewSize | CGSize | CGSizeMake(24,24) | |
-| dayTextFont | UIFont | UIFont.systemFontOfSize(12) | |
-| otherMonthBackgroundColor | UIColor |  | |
-| otherMonthDayViewBackgroundColor | UIColor |  | |
-| otherMonthTextColor | UIColor |  | |
-| dayBackgroundColor | UIColor |  | |
-| dayDayViewBackgroundColor | UIColor |  | |
-| dayTextColor | UIColor |  | |
-| selectedDayBackgroundColor | UIColor |  | |
-| selectedDayTextColor | UIColor |  | |
-| selectedBorderWidth | CGFloat | 1 | |
-| weekLabelFont | UIFont | UIFont.systemFontOfSize(12) | |
-| weekLabelTextColor | UIColor |  | |
-| weekLabelHeight | CGFloat | 25 | |
-| minDate | NSDate? | nil | |
-| maxDate | NSDate? | nil | |
-| outOfRangeDayBackgroundColor | UIColor |  | |
-| outOfRangeDayTextColor | UIColor |  | |
-| selectDayOnPeriodChange | Bool | true | |
+| Key | Type  | Default value |
+|:-------------------------------------------------:|:---------------------------:|:----------------------------:|
+| periodType | enum [.Month, .ThreeWeeks, .TwoWeeks, .OneWeek] | .Month |
+| dayViewType | enum [.Square, .Circle] | .Circle |
+| startDayType | enum [.Monday, .Sunday] | .Monday |
+| selectedDayType | enum [.Filled, .Border] | .Border |
+| rowHeight | CGFloat | 30 |
+| dayViewSize | CGSize | CGSizeMake(24,24) |
+| dayTextFont | UIFont | UIFont.systemFontOfSize(12) |
+| otherMonthBackgroundColor | UIColor | UIColor.clearColor() |
+| otherMonthDayViewBackgroundColor | UIColor | UIColor.clearColor() |
+| otherMonthTextColor | UIColor | UIColor.clearColor() |
+| dayBackgroundColor | UIColor | UIColor.clearColor() |
+| dayDayViewBackgroundColor | UIColor | UIColor.clearColor() |
+| dayTextColor | UIColor | UIColor.clearColor() |
+| selectedDayBackgroundColor | UIColor | UIColor.clearColor() |
+| selectedDayTextColor | UIColor | UIColor.clearColor() |
+| selectedBorderWidth | CGFloat | 1 |
+| weekLabelFont | UIFont | UIFont.systemFontOfSize(12) |
+| weekLabelTextColor | UIColor | UIColor.clearColor() |
+| weekLabelHeight | CGFloat | 25 |
+| minDate | NSDate? | nil |
+| maxDate | NSDate? | nil |
+| outOfRangeDayBackgroundColor | UIColor | UIColor.clearColor() |
+| outOfRangeDayTextColor | UIColor | UIColor.clearColor() |
+| selectDayOnPeriodChange | Bool | true |
 
 
 
