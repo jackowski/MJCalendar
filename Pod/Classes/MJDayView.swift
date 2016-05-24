@@ -168,6 +168,6 @@ public class MJDayView: MJComponentView {
     
     func setBorder() {
         self.borderView.backgroundColor = self.delegate.configurationWithComponent(self).selectedDayBackgroundColor
-        self.borderView.hidden = !self.delegate.componentView(self, isDateSelected: self.date)
+        self.borderView.hidden = !(self.delegate.componentView(self, isDateSelected: self.date) && isSameMonth)
     }
 }
