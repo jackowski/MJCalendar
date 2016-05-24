@@ -63,16 +63,18 @@ public class MJDayView: MJComponentView {
         self.addSubview(self.label)
     }
     
-    override public func layoutSubviews() {
+    override func updateFrame() {
         let labelSize = self.labelSize()
         let labelFrame = CGRectMake((self.width() - labelSize.width) / 2,
-            (self.height() - labelSize.height) / 2, labelSize.width, labelSize.height)
+                                    (self.height() - labelSize.height) / 2, labelSize.width, labelSize.height)
         self.label.frame = labelFrame
         
         let dayViewSize = self.delegate.configurationWithComponent(self).dayViewSize
         let borderFrame = CGRectMake((self.width() - dayViewSize.width) / 2,
-            (self.height() - dayViewSize.height) / 2, dayViewSize.width, dayViewSize.height)
+                                     (self.height() - dayViewSize.height) / 2, dayViewSize.width, dayViewSize.height)
         self.borderView.frame = borderFrame
+        
+        print("Day view layout subviews")
     }
     
     func labelSize() -> CGSize {

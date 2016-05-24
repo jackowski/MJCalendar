@@ -20,6 +20,7 @@ protocol MJComponentDelegate: NSObjectProtocol {
 
 public class MJComponentView: UIView {
     weak var delegate: MJComponentDelegate!
+    var currentFrame = CGRectZero
     
     init(delegate: MJComponentDelegate) {
         self.delegate = delegate
@@ -29,12 +30,15 @@ public class MJComponentView: UIView {
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-}
-
-/*
-extension NSDate {
-    func dateByAddingEfficientlyDays(days: Int) -> NSDate {
-        return self.dateByAddingDays(days)
+    
+    override public func layoutSubviews() {
+        if !CGRectEqualToRect(self.currentFrame, self.frame) {
+            self.currentFrame = self.frame
+            self.updateFrame()
+        }
+    }
+    
+    func updateFrame() {
+        fatalError("updateFrame has not been implemented")
     }
 }
-*/
