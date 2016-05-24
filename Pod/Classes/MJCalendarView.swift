@@ -350,6 +350,16 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         return 0
     }
     
+    public func reloadDayViews() {
+        for periodView in self.periods! {
+            for weekView in periodView.weeks! {
+                for dayView in weekView.days! {
+                    dayView.updateView()
+                }
+            }
+        }
+    }
+    
     public func animateToPeriodType(periodType: MJConfiguration.PeriodType, duration: NSTimeInterval, animations: (calendarHeight: CGFloat) -> Void, completion: ((Bool) -> Void)?) {
         let previousVisibleDate = self.visiblePeriodDate
         let previousPeriodType = self.configuration.periodType
