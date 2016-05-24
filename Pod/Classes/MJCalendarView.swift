@@ -295,10 +295,11 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         if self.visiblePeriodDate !=  periodDate {
             self.currentPage = page
             self.visiblePeriodDate = periodDate
-            self.setPeriodViews()
             self.calendarDelegate?.calendar(self, didChangePeriod: periodDate, bySwipe: true)
             if self.configuration.selectDayOnPeriodChange {
                 self.selectDate(periodDate)
+            } else {
+                self.setPeriodViews()
             }
         }
     }
