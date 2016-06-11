@@ -1,28 +1,17 @@
 PODS:
-  - FBSnapshotTestCase (2.0.7):
-    - FBSnapshotTestCase/SwiftSupport (= 2.0.7)
-  - FBSnapshotTestCase/Core (2.0.7)
-  - FBSnapshotTestCase/SwiftSupport (2.0.7):
-    - FBSnapshotTestCase/Core
   - HexColors (2.3.0)
-  - MJCalendar (0.1.0):
+  - MJCalendar (0.3.0):
     - NSDate-Escort (~> 1.5)
     - UIView+JMFrame
-  - Nimble (3.0.0)
-  - Nimble-Snapshots (3.0.0):
-    - FBSnapshotTestCase (~> 2.0.7)
-    - Nimble
-    - Quick
-  - NSDate-Escort (1.6.0)
-  - Quick (0.8.0)
+  - Nimble (4.0.1)
+  - NSDate-Escort (1.7.0)
+  - Quick (0.9.2)
   - UIView+JMFrame (0.1.2)
 
 DEPENDENCIES:
-  - FBSnapshotTestCase
   - HexColors (~> 2.3)
   - MJCalendar (from `../`)
   - Nimble
-  - Nimble-Snapshots
   - Quick
 
 EXTERNAL SOURCES:
@@ -30,13 +19,13 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  FBSnapshotTestCase: 7e85180d0d141a0cf472352edda7e80d7eaeb547
   HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
-  MJCalendar: 4f4ff7f1c3c2928521d60f7b6a3ea265c6e42afd
-  Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
-  Nimble-Snapshots: ab41dd737dcd33a0b0cb005a30465fef70b7207a
-  NSDate-Escort: 4408eb8c3f146a271686e7e428b269e27b3d1265
-  Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
+  MJCalendar: b2fd76979ae2c7b03c44e6bff005311d25691121
+  Nimble: 0f3c8b8b084cda391209c3c5efbb48bedeeb920a
+  NSDate-Escort: 3469fefab423c094108c2e864416b61b6ac0edbc
+  Quick: 18d057bc66451eedd5d1c8dc99ba2a5db6e60226
   UIView+JMFrame: a907974c9d34b1c300aef85ae2a1a5af746f2b8a
 
-COCOAPODS: 0.38.2
+PODFILE CHECKSUM: f3519f566b876d4eab2d8556d5ba4eafe1154685
+
+COCOAPODS: 1.0.0
