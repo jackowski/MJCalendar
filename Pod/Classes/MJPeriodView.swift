@@ -67,7 +67,6 @@ public class MJPeriodView: MJComponentView {
         for (index, week) in (self.weeks!).enumerate() {
             let lineHeight = self.delegate.configurationWithComponent(self).rowHeight
             week.frame = CGRectMake(0, CGFloat(index) * lineHeight, self.width(), lineHeight)
-            print("Period view layout subviews")
         }
     }
     

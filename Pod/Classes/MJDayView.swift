@@ -73,8 +73,6 @@ public class MJDayView: MJComponentView {
         let borderFrame = CGRectMake((self.width() - dayViewSize.width) / 2,
                                      (self.height() - dayViewSize.height) / 2, dayViewSize.width, dayViewSize.height)
         self.borderView.frame = borderFrame
-        
-        print("Day view layout subviews")
     }
     
     func labelSize() -> CGSize {
