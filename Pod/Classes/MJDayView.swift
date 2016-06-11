@@ -41,7 +41,7 @@ public class MJDayView: MJComponentView {
     }
     
     func setUpGesture() {
-        let tap = UITapGestureRecognizer(target: self, action: Selector("didTap"))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(MJDayView.didTap))
         self.addGestureRecognizer(tap)
     }
     
