@@ -223,6 +223,31 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         self.setPeriodViews()
     }
     
+    func selectNewPeriod(date: NSDate) {
+        let validatedDate = dateInRange(date)
+        if !self.isDateAlreadyShown(validatedDate) {
+            let periodDate = self.startDate(validatedDate, withOtherMonth: false)
+            self.visiblePeriodDate = periodDate
+            self.calendarDelegate?.calendar(self, didChangePeriod: periodDate, bySwipe: false)
+        }
+        self.date = validatedDate
+        self.setPeriodViews()
+    }
+    
+    public func moveToNextPeriod() {
+        if let nextPeriodDate = self.periods?.last?.startingPeriodDate() {
+            selectNewPeriod(nextPeriodDate)
+            calendarDelegate?.calendar(self, didChangePeriod: nextPeriodDate, bySwipe: true)
+        }
+    }
+    
+    public func moveToPreviousPeriod() {
+        if let previousPeriodDate = self.periods?.first?.startingPeriodDate() {
+            selectNewPeriod(previousPeriodDate)
+            calendarDelegate?.calendar(self, didChangePeriod: previousPeriodDate, bySwipe: true)
+        }
+    }
+    
     func dateInRange(date: NSDate) -> NSDate {
         if isDateEarlierThanMin(date) {
             return configuration.minDate!.dateAtStartOfDay()
