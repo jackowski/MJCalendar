@@ -86,6 +86,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Set start day. Available type: .Monday, Sunday
         self.calendarView.configuration.startDayType = .Monday
 
+        // Set number of letters presented in the week days label
+        self.calendarView.configuration.lettersInWeekDayLabel = .One
+
         // Set day text font
         self.calendarView.configuration.dayTextFont = UIFont.systemFontOfSize(12)
 
