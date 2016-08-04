@@ -28,11 +28,19 @@ public struct MJConfiguration {
     public enum StartDayType {
         case Monday, Sunday
     }
-    
+
+    public enum LettersInWeekDay: Int {
+        case One = 1
+        case Two
+        case Three
+    }
+
     public enum SelectedDayType {
         case Filled, Border
     }
-    
+
+    public var lettersInWeekDayLabel:LettersInWeekDay = .Three
+
     public var periodType: PeriodType = .Month
     public var dayViewType: DayViewType = .Circle
     public var startDayType: StartDayType = .Monday

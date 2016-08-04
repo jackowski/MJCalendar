@@ -10,28 +10,26 @@ import UIKit
 
 class MJWeekLabelsView: MJComponentView {
     var weekLabels: [UILabel] = []
-    var dayWeekText: [String] {
-        if self.delegate.configurationWithComponent(self).startDayType == .Monday {
-            return [
-                "MON",
-                "TUE",
-                "WED",
-                "THU",
-                "FRI",
-                "SAT",
-                "SUN"
-            ]
-        } else {
-            return [
-                "SUN",
-                "MON",
-                "TUE",
-                "WED",
-                "THU",
-                "FRI",
-                "SAT"
-            ]
+
+    lazy var formatter = NSDateFormatter()
+    var dayWeekText:[String] {
+        var dayWeekText:[String] = []
+        var dayIndex: Int
+
+        for index in 1...7 {
+
+            switch self.delegate.configurationWithComponent(self).startDayType {
+            case .Monday:
+                dayIndex = index % 7
+            case .Sunday:
+                dayIndex = index - 1
+            }
+
+            let day : NSString = formatter.weekdaySymbols[dayIndex]
+            dayWeekText.append(day.substringToIndex(self.delegate.configurationWithComponent(self).lettersInWeekDayLabel.rawValue).uppercaseString)
         }
+
+        return dayWeekText
     }
 
     override init(delegate: MJComponentDelegate) {
