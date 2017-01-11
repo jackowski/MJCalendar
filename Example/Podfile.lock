@@ -3,16 +3,12 @@ PODS:
   - MJCalendar (0.3.0):
     - NSDate-Escort (~> 1.5)
     - UIView+JMFrame
-  - Nimble (4.0.1)
   - NSDate-Escort (1.7.0)
-  - Quick (0.9.2)
   - UIView+JMFrame (0.1.2)
 
 DEPENDENCIES:
   - HexColors (~> 2.3)
   - MJCalendar (from `../`)
-  - Nimble
-  - Quick
 
 EXTERNAL SOURCES:
   MJCalendar:
@@ -20,12 +16,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
-  MJCalendar: b2fd76979ae2c7b03c44e6bff005311d25691121
-  Nimble: 0f3c8b8b084cda391209c3c5efbb48bedeeb920a
+  MJCalendar: fded170474124dc14ae81868f7ffc69bc5438b6f
   NSDate-Escort: 3469fefab423c094108c2e864416b61b6ac0edbc
-  Quick: 18d057bc66451eedd5d1c8dc99ba2a5db6e60226
   UIView+JMFrame: a907974c9d34b1c300aef85ae2a1a5af746f2b8a
 
-PODFILE CHECKSUM: f3519f566b876d4eab2d8556d5ba4eafe1154685
+PODFILE CHECKSUM: 4a8b5d26398ddbd90a4263c73faf04b15b5e7d20
 
-COCOAPODS: 1.0.0
+COCOAPODS: 1.1.1

@@ -11,7 +11,7 @@ import UIKit
 class MJWeekLabelsView: MJComponentView {
     var weekLabels: [UILabel] = []
 
-    lazy var formatter = NSDateFormatter()
+    lazy var formatter = DateFormatter()
     var dayWeekText:[String] {
         var dayWeekText:[String] = []
         var dayIndex: Int
@@ -19,14 +19,14 @@ class MJWeekLabelsView: MJComponentView {
         for index in 1...7 {
 
             switch self.delegate.configurationWithComponent(self).startDayType {
-            case .Monday:
+            case .monday:
                 dayIndex = index % 7
-            case .Sunday:
+            case .sunday:
                 dayIndex = index - 1
             }
 
-            let day : NSString = formatter.weekdaySymbols[dayIndex]
-            dayWeekText.append(day.substringToIndex(self.delegate.configurationWithComponent(self).lettersInWeekDayLabel.rawValue).uppercaseString)
+            let day : NSString = formatter.weekdaySymbols[dayIndex] as NSString
+            dayWeekText.append(day.substring(to: delegate.configurationWithComponent(self).lettersInWeekDayLabel.rawValue).uppercased())
         }
 
         return dayWeekText
@@ -47,14 +47,14 @@ class MJWeekLabelsView: MJComponentView {
             label.font = self.delegate.configurationWithComponent(self).weekLabelFont
             label.textColor = self.delegate.configurationWithComponent(self).weekLabelTextColor
             label.text = self.dayWeekText[i]
-            label.textAlignment = .Center
+            label.textAlignment = .center
             self.addSubview(label)
             self.weekLabels.append(label)
         }
     }
     
     func updateView() {
-        for (index, weekLabel) in self.weekLabels.enumerate() {
+        for (index, weekLabel) in self.weekLabels.enumerated() {
             weekLabel.font = self.delegate.configurationWithComponent(self).weekLabelFont
             weekLabel.textColor = self.delegate.configurationWithComponent(self).weekLabelTextColor
             weekLabel.text = self.dayWeekText[index]
@@ -62,9 +62,9 @@ class MJWeekLabelsView: MJComponentView {
     }
     
     override func updateFrame() {
-        for (index, weekLabel) in self.weekLabels.enumerate() {
+        for (index, weekLabel) in self.weekLabels.enumerated() {
             let labelWidth: CGFloat = self.width() / 7
-            weekLabel.frame = CGRectMake(CGFloat(index) * labelWidth, 0, labelWidth, self.height())
+            weekLabel.frame = CGRect(x: CGFloat(index) * labelWidth, y: 0, width: labelWidth, height: self.height())
         }
     }
 }

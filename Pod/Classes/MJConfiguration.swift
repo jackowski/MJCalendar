@@ -10,67 +10,67 @@ import Foundation
 
 public struct MJConfiguration {
     public enum PeriodType {
-        case OneWeek, TwoWeeks, ThreeWeeks, Month
+        case oneWeek, twoWeeks, threeWeeks, month
         func weeksCount() -> Int {
             switch self {
-                case .Month: return 6
-                case .ThreeWeeks: return 3
-                case .TwoWeeks: return 2
-                case .OneWeek: return 1
+                case .month: return 6
+                case .threeWeeks: return 3
+                case .twoWeeks: return 2
+                case .oneWeek: return 1
             }
         }
     }
     
     public enum DayViewType {
-        case Square, Circle
+        case square, circle
     }
     
     public enum StartDayType {
-        case Monday, Sunday
+        case monday, sunday
     }
 
     public enum LettersInWeekDay: Int {
-        case One = 1
-        case Two
-        case Three
+        case one = 1
+        case two
+        case three
     }
 
     public enum SelectedDayType {
-        case Filled, Border
+        case filled, border
     }
 
-    public var lettersInWeekDayLabel:LettersInWeekDay = .Three
+    public var lettersInWeekDayLabel:LettersInWeekDay = .three
 
-    public var periodType: PeriodType = .Month
-    public var dayViewType: DayViewType = .Circle
-    public var startDayType: StartDayType = .Monday
-    public var selectedDayType: SelectedDayType = .Border
+    public var periodType: PeriodType = .month
+    public var dayViewType: DayViewType = .circle
+    public var startDayType: StartDayType = .monday
+    public var selectedDayType: SelectedDayType = .border
     
     public var rowHeight: CGFloat = 30
-    public var dayViewSize: CGSize = CGSizeMake(24, 24)
-    public var dayTextFont = UIFont.systemFontOfSize(12)
+    public var dayViewSize: CGSize = CGSize(width: 24, height: 24)
+    public var dayTextFont = UIFont.systemFont(ofSize: 12)
     
-    public var otherMonthBackgroundColor = UIColor.clearColor()
-    public var otherMonthDayViewBackgroundColor = UIColor.clearColor()
-    public var otherMonthTextColor = UIColor.clearColor()
+    public var otherMonthBackgroundColor = UIColor.clear
+    public var otherMonthDayViewBackgroundColor = UIColor.clear
+    public var otherMonthTextColor = UIColor.clear
     
-    public var dayBackgroundColor = UIColor.clearColor()
-    public var dayDayViewBackgroundColor = UIColor.clearColor()
-    public var dayTextColor = UIColor.clearColor()
+    public var dayBackgroundColor = UIColor.clear
+    public var dayDayViewBackgroundColor = UIColor.clear
+    public var dayTextColor = UIColor.clear
     
-    public var selectedDayBackgroundColor = UIColor.clearColor()
-    public var selectedDayTextColor = UIColor.clearColor()
+    public var selectedDayBackgroundColor = UIColor.clear
+    public var selectedDayTextColor = UIColor.clear
     public var selectedBorderWidth: CGFloat = 1
     
-    public var weekLabelFont = UIFont.systemFontOfSize(12)
-    public var weekLabelTextColor = UIColor.clearColor()
+    public var weekLabelFont = UIFont.systemFont(ofSize: 12)
+    public var weekLabelTextColor = UIColor.clear
     public var weekLabelHeight: CGFloat = 25
     
-    public var minDate: NSDate?
-    public var maxDate: NSDate?
+    public var minDate: Date?
+    public var maxDate: Date?
     
-    public var outOfRangeDayBackgroundColor = UIColor.clearColor()
-    public var outOfRangeDayTextColor = UIColor.clearColor()
+    public var outOfRangeDayBackgroundColor = UIColor.clear
+    public var outOfRangeDayTextColor = UIColor.clear
     
     public var selectDayOnPeriodChange: Bool = true
     

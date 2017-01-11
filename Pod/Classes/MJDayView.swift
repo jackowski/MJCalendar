@@ -9,13 +9,13 @@
 import UIKit
 import NSDate_Escort
 
-public class MJDayView: MJComponentView {
-    var date: NSDate! {
+open class MJDayView: MJComponentView {
+    var date: Date! {
         didSet {
             self.updateView()
         }
     }
-    var todayDate: NSDate!
+    var todayDate: Date!
     var label: UILabel!
     var borderView: UIView!
     var isSameMonth = true {
@@ -30,9 +30,9 @@ public class MJDayView: MJComponentView {
         super.init(coder: aDecoder)
     }
     
-    init(date: NSDate, delegate: MJComponentDelegate) {
+    init(date: Date, delegate: MJComponentDelegate) {
         self.date = date
-        self.todayDate = NSDate().dateAtStartOfDay()
+        self.todayDate = (Date() as NSDate).atStartOfDay()
         super.init(delegate: delegate)
         self.setUpGesture()
         self.setUpBorderView()
@@ -58,29 +58,29 @@ public class MJDayView: MJComponentView {
     
     func setUpLabel() {
         self.label = UILabel()
-        self.label.textAlignment = .Center
+        self.label.textAlignment = .center
         self.label.clipsToBounds = true
         self.addSubview(self.label)
     }
     
     override func updateFrame() {
         let labelSize = self.labelSize()
-        let labelFrame = CGRectMake((self.width() - labelSize.width) / 2,
-                                    (self.height() - labelSize.height) / 2, labelSize.width, labelSize.height)
+        let labelFrame = CGRect(x: (self.width() - labelSize.width) / 2,
+                                    y: (self.height() - labelSize.height) / 2, width: labelSize.width, height: labelSize.height)
         self.label.frame = labelFrame
         
         let dayViewSize = self.delegate.configurationWithComponent(self).dayViewSize
-        let borderFrame = CGRectMake((self.width() - dayViewSize.width) / 2,
-                                     (self.height() - dayViewSize.height) / 2, dayViewSize.width, dayViewSize.height)
+        let borderFrame = CGRect(x: (self.width() - dayViewSize.width) / 2,
+                                     y: (self.height() - dayViewSize.height) / 2, width: dayViewSize.width, height: dayViewSize.height)
         self.borderView.frame = borderFrame
     }
     
     func labelSize() -> CGSize {
         let dayViewSize = self.delegate.configurationWithComponent(self).dayViewSize
         let borderSize = self.delegate.configurationWithComponent(self).selectedBorderWidth
-        let labelSize = self.delegate.configurationWithComponent(self).selectedDayType == .Filled
+        let labelSize = self.delegate.configurationWithComponent(self).selectedDayType == .filled
             ? dayViewSize
-            : CGSizeMake(dayViewSize.width - 2 * borderSize, dayViewSize.height - 2 * borderSize)
+            : CGSize(width: dayViewSize.width - 2 * borderSize, height: dayViewSize.height - 2 * borderSize)
         return labelSize
     }
     
@@ -95,12 +95,12 @@ public class MJDayView: MJComponentView {
     
     func setText() {
         self.label.font = self.delegate.configurationWithComponent(self).dayTextFont
-        let text = "\(self.date.day)"
+        let text = "\((self.date as NSDate).day)"
         self.label.text = text
         
         let isToday = self.todayDate.timeIntervalSince1970 == self.date.timeIntervalSince1970
         if isToday {
-            let underlineAttribute = [NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue]
+            let underlineAttribute = [NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue]
             self.label.attributedText = NSAttributedString(string: text, attributes: underlineAttribute)
         } else {
             self.label.attributedText = NSAttributedString(string: text)
@@ -108,7 +108,7 @@ public class MJDayView: MJComponentView {
     }
     
     func setShape() {
-        let labelCornerRadius = self.delegate.configurationWithComponent(self).dayViewType == .Circle
+        let labelCornerRadius = self.delegate.configurationWithComponent(self).dayViewType == .circle
             ? self.labelSize().width / 2
             : 0
         self.label.layer.cornerRadius = labelCornerRadius
@@ -130,7 +130,7 @@ public class MJDayView: MJComponentView {
     
     func setTextColors() {
         if self.delegate.componentView(self, isDateSelected: self.date)
-            && self.delegate.configurationWithComponent(self).selectedDayType == .Filled {
+            && self.delegate.configurationWithComponent(self).selectedDayType == .filled {
             self.label.textColor = self.delegate.configurationWithComponent(self).selectedDayTextColor
         } else if self.isSameMonth {
             if let textColor = self.delegate.componentView(self, textColorForDate: self.date) {
@@ -149,7 +149,7 @@ public class MJDayView: MJComponentView {
     
     func setBackgrounds() {
         if self.delegate.componentView(self, isDateSelected: self.date)
-            && self.delegate.configurationWithComponent(self).selectedDayType == .Filled {
+            && self.delegate.configurationWithComponent(self).selectedDayType == .filled {
                 self.label.backgroundColor = self.delegate.configurationWithComponent(self).selectedDayBackgroundColor
         } else if self.isSameMonth {
             if let backgroundColor = self.delegate.componentView(self, backgroundColorForDate: self.date) {
@@ -168,6 +168,6 @@ public class MJDayView: MJComponentView {
     
     func setBorder() {
         self.borderView.backgroundColor = self.delegate.configurationWithComponent(self).selectedDayBackgroundColor
-        self.borderView.hidden = !(self.delegate.componentView(self, isDateSelected: self.date) && isSameMonth)
+        self.borderView.isHidden = !(self.delegate.componentView(self, isDateSelected: self.date) && isSameMonth)
     }
 }

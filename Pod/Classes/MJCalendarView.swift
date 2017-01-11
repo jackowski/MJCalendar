@@ -11,29 +11,29 @@ import NSDate_Escort
 import UIView_JMFrame
 
 public protocol MJCalendarViewDelegate: NSObjectProtocol {
-    func calendar(calendarView: MJCalendarView, didChangePeriod periodDate: NSDate, bySwipe: Bool)
-    func calendar(calendarView: MJCalendarView, didSelectDate date: NSDate)
-    func calendar(calendarView: MJCalendarView, backgroundForDate date: NSDate) -> UIColor?
-    func calendar(calendarView: MJCalendarView, textColorForDate date: NSDate) -> UIColor?
+    func calendar(_ calendarView: MJCalendarView, didChangePeriod periodDate: Date, bySwipe: Bool)
+    func calendar(_ calendarView: MJCalendarView, didSelectDate date: Date)
+    func calendar(_ calendarView: MJCalendarView, backgroundForDate date: Date) -> UIColor?
+    func calendar(_ calendarView: MJCalendarView, textColorForDate date: Date) -> UIColor?
 }
 
-public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
-    public var configuration: MJConfiguration
+open class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
+    open var configuration: MJConfiguration
     var periods: [MJPeriodView]?
     var weekLabelsView: MJWeekLabelsView?
     var periodsContainerView: UIScrollView?
     
-    var date: NSDate
-    var visiblePeriodDate: NSDate!
-    var currentFrame = CGRectZero
-    weak public var calendarDelegate: MJCalendarViewDelegate?
+    var date: Date
+    var visiblePeriodDate: Date!
+    var currentFrame = CGRect.zero
+    weak open var calendarDelegate: MJCalendarViewDelegate?
     var isAnimating = false
     
     var currentPage: Int!
     
     required public init?(coder aDecoder: NSCoder) {
         self.configuration = MJConfiguration.getDefault()
-        self.date = NSDate().dateAtStartOfDay()
+        self.date = NSDate().atStartOfDay() as Date
         super.init(coder: aDecoder)
         self.visiblePeriodDate = self.startDate(self.date, withOtherMonth: false)
         self.configureViews()
@@ -41,7 +41,7 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
     
     override init(frame: CGRect) {
         self.configuration = MJConfiguration.getDefault()
-        self.date = NSDate().dateAtStartOfDay()
+        self.date = NSDate().atStartOfDay()
         super.init(frame: frame)
         self.visiblePeriodDate = self.startDate(self.date, withOtherMonth: false)
         self.configureViews()
@@ -51,8 +51,8 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         self.weekLabelsView = MJWeekLabelsView(delegate: self)
         self.addSubview(self.weekLabelsView!)
         
-        self.periodsContainerView = UIScrollView(frame: CGRectZero)
-        self.periodsContainerView!.pagingEnabled = true
+        self.periodsContainerView = UIScrollView(frame: CGRect.zero)
+        self.periodsContainerView!.isPagingEnabled = true
         self.periodsContainerView!.delegate = self
         self.periodsContainerView?.showsHorizontalScrollIndicator = false
         self.addSubview(self.periodsContainerView!)
@@ -62,9 +62,9 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
     
     func setPeriodViews() {
         let visibleDate = self.visiblePeriodDate
-        let previousDate = self.previousPeriodDate(visibleDate, withOtherMonth: true)
-        let currentDate = self.startDate(visibleDate, withOtherMonth: true)
-        let nextDate = self.nextPeriodDate(visibleDate, withOtherMonth: true)
+        let previousDate = self.previousPeriodDate(visibleDate!, withOtherMonth: true)
+        let currentDate = self.startDate(visibleDate!, withOtherMonth: true)
+        let nextDate = self.nextPeriodDate(visibleDate!, withOtherMonth: true)
         
         if var periodViews = self.periods {
             if self.shouldChangePeriodsRange() {
@@ -89,7 +89,7 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         }
     }
     
-    func createPeriodsViews(previousDate: NSDate, currentDate: NSDate, nextDate: NSDate) {
+    func createPeriodsViews(_ previousDate: Date, currentDate: Date, nextDate: Date) {
         self.clearView()
         self.periods = []
         
@@ -109,18 +109,18 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
             self.periods!.append(nextPeriodView)
         }
         
-        self.currentPage = self.periods!.indexOf(currentPeriodView)
+        self.currentPage = self.periods!.index(of: currentPeriodView)
     }
     
     func shouldChangePeriodsRange() -> Bool {
         let startDateOfPeriod = self.visiblePeriodDate
         let endDateOfPeriod = nextPeriodDate(self.visiblePeriodDate, withOtherMonth: false)
-        return !(self.isDateEarlierThanMin(startDateOfPeriod) || self.isDateLaterThanMax(endDateOfPeriod))
+        return !(self.isDateEarlierThanMin(startDateOfPeriod!) || self.isDateLaterThanMax(endDateOfPeriod))
     }
     
-    func isDateEarlierThanMin(date: NSDate) -> Bool {
-        if let minDate = configuration.minDate?.dateAtStartOfDay() {
-            if date.isEarlierThanDate(minDate) {
+    func isDateEarlierThanMin(_ date: Date) -> Bool {
+        if let minDate = (configuration.minDate as? NSDate)?.atStartOfDay() {
+            if (date as NSDate).isEarlierThanDate(minDate) {
                 return true
             }
         }
@@ -128,9 +128,9 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         return false
     }
     
-    func isDateLaterThanMax(date: NSDate) -> Bool {
-        if let maxDate = configuration.maxDate?.dateAtEndOfDay() {
-            if date.isLaterThanDate(maxDate) {
+    func isDateLaterThanMax(_ date: Date) -> Bool {
+        if let maxDate = (configuration.maxDate as? NSDate)?.atEndOfDay() {
+            if (date as NSDate).isLaterThanDate(maxDate) {
                 return true
             }
         }
@@ -138,39 +138,40 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         return false
     }
     
-    override public func layoutSubviews() {
-        if !CGRectEqualToRect(self.currentFrame, self.frame) && !isAnimating {
+    override open func layoutSubviews() {
+        if !self.currentFrame.equalTo(self.frame) && !isAnimating {
             self.currentFrame = self.frame
             
             let weekLabelsViewHeight = self.configuration.weekLabelHeight
-            self.periodsContainerView!.frame = CGRectMake(0, weekLabelsViewHeight, self.width(), self.height() - weekLabelsViewHeight)
+            self.periodsContainerView!.frame = CGRect(x: 0, y: weekLabelsViewHeight, width: self.width(), height: self.height() - weekLabelsViewHeight)
             
             self.setPeriodFrames()
         }
     }
     
     func setPeriodFrames() {
-        let mod7 = self.width() % 7
+        let mod7 = self.width().truncatingRemainder(dividingBy: 7)
         let width = self.width() - mod7
         let x = ceil(mod7 / 2)
         
-        self.weekLabelsView?.frame = CGRectMake(x, 0, width, self.configuration.weekLabelHeight)
+        self.weekLabelsView?.frame = CGRect(x: x, y: 0, width: width, height: self.configuration.weekLabelHeight)
         
-        for (index, period) in (self.periods!).enumerate() {
-            period.frame = CGRectMake(CGFloat(index) * self.width() + x, 0, width, self.periodHeight(self.configuration.periodType))
+        for (index, period) in (self.periods!).enumerated() {
+            
+            period.frame = CGRect(x: CGFloat(index) * self.width() + x,y: 0,width: width, height: self.periodHeight(self.configuration.periodType))
         }
         
-        self.periodsContainerView!.contentSize = CGSizeMake(self.width() * CGFloat(self.periods!.count), self.height() - self.configuration.weekLabelHeight)
-        self.periodsContainerView!.contentOffset.x = CGRectGetWidth(self.frame) * CGFloat(self.currentPage)
+        self.periodsContainerView!.contentSize = CGSize(width: self.width() * CGFloat(self.periods!.count), height: self.height() - self.configuration.weekLabelHeight)
+        self.periodsContainerView!.contentOffset.x = self.frame.width * CGFloat(self.currentPage)
     }
     
-    func periodHeight(periodType: MJConfiguration.PeriodType) -> CGFloat {
+    func periodHeight(_ periodType: MJConfiguration.PeriodType) -> CGFloat {
         return CGFloat(periodType.weeksCount()) * self.configuration.rowHeight
     }
     
-    func startDate(date: NSDate, withOtherMonth: Bool) -> NSDate {
-        if self.configuration.periodType == .Month {
-            let beginningOfMonth = date.dateAtStartOfMonth()
+    func startDate(_ date: Date, withOtherMonth: Bool) -> Date {
+        if self.configuration.periodType == .month {
+            let beginningOfMonth = (date as NSDate).atStartOfMonth()
             if withOtherMonth {
                 return self.startWeekDay(beginningOfMonth)
             } else {
@@ -182,36 +183,36 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         }
     }
     
-    func startWeekDay(date: NSDate) -> NSDate {
-        let delta = self.configuration.startDayType == .Monday ? 2 : 1
-        var daysToSubstract = date.weekday - delta
+    func startWeekDay(_ date: Date) -> Date {
+        let delta = self.configuration.startDayType == .monday ? 2 : 1
+        var daysToSubstract = (date as NSDate).weekday - delta
         if daysToSubstract < 0 {
             daysToSubstract += 7
         }
-        return date.dateBySubtractingDays(daysToSubstract)
+        return (date as NSDate).subtractingDays(daysToSubstract)
     }
     
-    func nextPeriodDate(date: NSDate, withOtherMonth: Bool) -> NSDate {
+    func nextPeriodDate(_ date: Date, withOtherMonth: Bool) -> Date {
         return self.periodDate(date, isNext: true, withOtherMonth: withOtherMonth)
     }
     
-    func previousPeriodDate(date: NSDate, withOtherMonth: Bool) -> NSDate {
+    func previousPeriodDate(_ date: Date, withOtherMonth: Bool) -> Date {
         return self.periodDate(date, isNext: false, withOtherMonth: withOtherMonth)
     }
     
-    func periodDate(date: NSDate, isNext: Bool, withOtherMonth: Bool) -> NSDate {
+    func periodDate(_ date: Date, isNext: Bool, withOtherMonth: Bool) -> Date {
         let isNextFactor = isNext ? 1 : -1
         switch self.configuration.periodType {
-            case .Month:
-                let otherMonthDate = date.dateByAddingMonths(1 * isNextFactor)
+            case .month:
+                let otherMonthDate = (date as NSDate).addingMonths(1 * isNextFactor)
                 return self.startDate(otherMonthDate, withOtherMonth: withOtherMonth)
-            case .ThreeWeeks: return date.dateByAddingDays((3 * isNextFactor) * 7)
-            case .TwoWeeks: return date.dateByAddingDays((2 * isNextFactor) * 7)
-            case .OneWeek: return date.dateByAddingDays((1 * isNextFactor) * 7)
+            case .threeWeeks: return (date as NSDate).addingDays((3 * isNextFactor) * 7)
+            case .twoWeeks: return (date as NSDate).addingDays((2 * isNextFactor) * 7)
+            case .oneWeek: return (date as NSDate).addingDays((1 * isNextFactor) * 7)
         }
     }
     
-    public func selectDate(date: NSDate) {
+    open func selectDate(_ date: Date) {
         let validatedDate = dateInRange(date)
         if !self.isDateAlreadyShown(validatedDate) {
             let periodDate = self.startDate(validatedDate, withOtherMonth: false)
@@ -223,7 +224,7 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         self.setPeriodViews()
     }
     
-    func selectNewPeriod(date: NSDate) {
+    func selectNewPeriod(_ date: Date) {
         let validatedDate = dateInRange(date)
         if !self.isDateAlreadyShown(validatedDate) {
             let periodDate = self.startDate(validatedDate, withOtherMonth: false)
@@ -234,34 +235,34 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         self.setPeriodViews()
     }
     
-    public func moveToNextPeriod() {
+    open func moveToNextPeriod() {
         if let nextPeriodDate = self.periods?.last?.startingPeriodDate() {
-            selectNewPeriod(nextPeriodDate)
-            calendarDelegate?.calendar(self, didChangePeriod: nextPeriodDate, bySwipe: true)
+            selectNewPeriod(nextPeriodDate as Date)
+            calendarDelegate?.calendar(self, didChangePeriod: nextPeriodDate as Date, bySwipe: true)
         }
     }
     
-    public func moveToPreviousPeriod() {
+    open func moveToPreviousPeriod() {
         if let previousPeriodDate = self.periods?.first?.startingPeriodDate() {
-            selectNewPeriod(previousPeriodDate)
-            calendarDelegate?.calendar(self, didChangePeriod: previousPeriodDate, bySwipe: true)
+            selectNewPeriod(previousPeriodDate as Date)
+            calendarDelegate?.calendar(self, didChangePeriod: previousPeriodDate as Date, bySwipe: true)
         }
     }
     
-    func dateInRange(date: NSDate) -> NSDate {
+    func dateInRange(_ date: Date) -> Date {
         if isDateEarlierThanMin(date) {
-            return configuration.minDate!.dateAtStartOfDay()
+            return (configuration.minDate! as NSDate).atStartOfDay()
         } else {
             return date
         }
     }
     
-    func retroPeriodDate(periodDate: NSDate) -> NSDate {
+    func retroPeriodDate(_ periodDate: Date) -> Date {
         switch self.configuration.periodType {
-            case .Month: return periodDate
-            case .ThreeWeeks: return periodDate.dateByAddingDays(-14)
-            case .TwoWeeks: return periodDate.dateByAddingDays(-7)
-            case .OneWeek: return periodDate
+            case .month: return periodDate
+            case .threeWeeks: return (periodDate as NSDate).addingDays(-14)
+            case .twoWeeks: return (periodDate as NSDate).addingDays(-7)
+            case .oneWeek: return periodDate
         }
     }
     
@@ -269,9 +270,9 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         return self.periods![self.currentPage]
     }
     
-    func isDateAlreadyShown(date: NSDate) -> Bool {
-        if self.configuration.periodType == .Month {
-            return date.dateAtStartOfMonth() == self.visiblePeriodDate.dateAtStartOfMonth()
+    func isDateAlreadyShown(_ date: Date) -> Bool {
+        if self.configuration.periodType == .month {
+            return (date as NSDate).atStartOfMonth() == (self.visiblePeriodDate as NSDate).atStartOfMonth()
         } else {
             return date.timeIntervalSince1970 >= self.currentPeriod().startingDate().timeIntervalSince1970
                 &&  date.timeIntervalSince1970 <= self.currentPeriod().endingDate().timeIntervalSince1970
@@ -280,39 +281,39 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
     
     // MARK: Calendar delegate
     
-    func componentView(componentView: MJComponentView, isDateSelected date: NSDate) -> Bool {
+    func componentView(_ componentView: MJComponentView, isDateSelected date: Date) -> Bool {
         return self.date == date
     }
     
-    func configurationWithComponent(componentView: MJComponentView) -> MJConfiguration {
+    func configurationWithComponent(_ componentView: MJComponentView) -> MJConfiguration {
         return self.configuration
     }
     
-    func componentView(componentView: MJComponentView, didSelectDate date: NSDate) {
+    func componentView(_ componentView: MJComponentView, didSelectDate date: Date) {
         self.selectDate(date)
         self.calendarDelegate?.calendar(self, didSelectDate: date)
     }
     
-    func isBeingAnimatedWithComponentView(componentView: MJComponentView) -> Bool {
+    func isBeingAnimatedWithComponentView(_ componentView: MJComponentView) -> Bool {
         return self.isAnimating
     }
     
-    func componentView(componentView: MJComponentView, backgroundColorForDate date: NSDate) -> UIColor? {
+    func componentView(_ componentView: MJComponentView, backgroundColorForDate date: Date) -> UIColor? {
         return self.calendarDelegate?.calendar(self, backgroundForDate: date)
     }
     
-    func componentView(componentView: MJComponentView, textColorForDate date: NSDate) -> UIColor? {
+    func componentView(_ componentView: MJComponentView, textColorForDate date: Date) -> UIColor? {
         return self.calendarDelegate?.calendar(self, textColorForDate: date)
     }
     
-    func isDateOutOfRange(componentView: MJComponentView, date: NSDate) -> Bool {
+    func isDateOutOfRange(_ componentView: MJComponentView, date: Date) -> Bool {
         return isDateLaterThanMax(date) || isDateEarlierThanMin(date)
     }
     
     // MARK: UIScrollViewDelegate
     
-    public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        let pageWidth = CGRectGetWidth(scrollView.frame)
+    open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let pageWidth = scrollView.frame.width
         let ratio = scrollView.contentOffset.x / pageWidth
         let page = Int(ratio)
 
@@ -329,11 +330,11 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         }
     }
     
-    func periodDateFromPage(page: Int) -> NSDate {
-        return periods![page].startingPeriodDate()
+    func periodDateFromPage(_ page: Int) -> Date {
+        return periods![page].startingPeriodDate() as Date
     }
     
-    public func reloadView() {
+    open func reloadView() {
         self.visiblePeriodDate = self.recalculatedVisibleDate(false)
         self.clearView()
         self.setPeriodViews()
@@ -349,13 +350,13 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         }
         
         self.periods = nil
-        self.currentFrame = CGRectZero
+        self.currentFrame = CGRect.zero
     }
     
-    func recalculatedVisibleDate(withOtherMonth: Bool) -> NSDate {
+    func recalculatedVisibleDate(_ withOtherMonth: Bool) -> Date {
         let visibleDate = self.currentPeriod().isDateInPeriod(self.date) ? self.date : self.visiblePeriodDate
-        let startDate = self.startDate(visibleDate, withOtherMonth: withOtherMonth)
-        if self.configuration.periodType == .Month || self.configuration.periodType == .OneWeek {
+        let startDate = self.startDate(visibleDate!, withOtherMonth: withOtherMonth)
+        if self.configuration.periodType == .month || self.configuration.periodType == .oneWeek {
             return startDate
         } else {
             let weekIndex = self.weekIndexByStartDate(startDate) + 1
@@ -365,8 +366,8 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         }
     }
     
-    func weekIndexByStartDate(startDate: NSDate) -> Int {
-        for (index, week) in (self.currentPeriod().weeks!).enumerate() {
+    func weekIndexByStartDate(_ startDate: Date) -> Int {
+        for (index, week) in (self.currentPeriod().weeks!).enumerated() {
             if week.date == startDate {
                 return index
             }
@@ -375,7 +376,7 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         return 0
     }
     
-    public func reloadDayViews() {
+    open func reloadDayViews() {
         for periodView in self.periods! {
             for weekView in periodView.weeks! {
                 for dayView in weekView.days! {
@@ -385,12 +386,12 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         }
     }
     
-    public func animateToPeriodType(periodType: MJConfiguration.PeriodType, duration: NSTimeInterval, animations: (calendarHeight: CGFloat) -> Void, completion: ((Bool) -> Void)?) {
+    open func animateToPeriodType(_ periodType: MJConfiguration.PeriodType, duration: TimeInterval, animations: @escaping (_ calendarHeight: CGFloat) -> Void, completion: ((Bool) -> Void)?) {
         let previousVisibleDate = self.visiblePeriodDate
         let previousPeriodType = self.configuration.periodType
         
         self.configuration.periodType = periodType
-        let yDelta = self.periodYDelta(periodType, previousVisibleDate: previousVisibleDate)
+        let yDelta = self.periodYDelta(periodType, previousVisibleDate: previousVisibleDate!)
         
         if periodType.weeksCount() > previousPeriodType.weeksCount() {
             self.reloadView()
@@ -405,17 +406,17 @@ public class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         }
     }
     
-    func periodYDelta(periodType: MJConfiguration.PeriodType, previousVisibleDate: NSDate) -> CGFloat {
+    func periodYDelta(_ periodType: MJConfiguration.PeriodType, previousVisibleDate: Date) -> CGFloat {
         let visiblePeriodDatePreview = self.recalculatedVisibleDate(true)
         let deltaVisiblePeriod = visiblePeriodDatePreview.timeIntervalSince1970 - previousVisibleDate.timeIntervalSince1970
         let weekIndexDelta = ceil(deltaVisiblePeriod / (3600 * 24 * 7))
         return CGFloat(weekIndexDelta) * self.configuration.rowHeight
     }
     
-    func performAnimation(animateToBiggerSize: Bool, periodType: MJConfiguration.PeriodType, yDelta: CGFloat, duration: NSTimeInterval, animations: (calendarHeight: CGFloat) -> Void, completion: ((Bool) -> Void)?) {
+    func performAnimation(_ animateToBiggerSize: Bool, periodType: MJConfiguration.PeriodType, yDelta: CGFloat, duration: TimeInterval, animations: @escaping (_ calendarHeight: CGFloat) -> Void, completion: ((Bool) -> Void)?) {
         self.isAnimating = true
-        UIView.animateWithDuration(duration, animations: { () -> Void in
-            animations(calendarHeight: self.periodHeight(periodType) + self.configuration.weekLabelHeight)
+        UIView.animate(withDuration: duration, animations: { () -> Void in
+            animations(self.periodHeight(periodType) + self.configuration.weekLabelHeight)
             if animateToBiggerSize {
                 self.currentPeriod().setY(0)
                 self.currentPeriod().setHeight(self.periodHeight(periodType))

@@ -9,30 +9,30 @@
 import UIKit
 
 protocol MJComponentDelegate: NSObjectProtocol {
-    func configurationWithComponent(componentView: MJComponentView) -> MJConfiguration
-    func componentView(componentView: MJComponentView, isDateSelected date: NSDate) -> Bool
-    func componentView(componentView: MJComponentView, didSelectDate date: NSDate)
-    func isBeingAnimatedWithComponentView(componentView: MJComponentView) -> Bool
-    func componentView(componentView: MJComponentView, backgroundColorForDate date: NSDate) -> UIColor?
-    func componentView(componentView: MJComponentView, textColorForDate date: NSDate) -> UIColor?
-    func isDateOutOfRange(componentView: MJComponentView, date: NSDate) -> Bool
+    func configurationWithComponent(_ componentView: MJComponentView) -> MJConfiguration
+    func componentView(_ componentView: MJComponentView, isDateSelected date: Date) -> Bool
+    func componentView(_ componentView: MJComponentView, didSelectDate date: Date)
+    func isBeingAnimatedWithComponentView(_ componentView: MJComponentView) -> Bool
+    func componentView(_ componentView: MJComponentView, backgroundColorForDate date: Date) -> UIColor?
+    func componentView(_ componentView: MJComponentView, textColorForDate date: Date) -> UIColor?
+    func isDateOutOfRange(_ componentView: MJComponentView, date: Date) -> Bool
 }
 
-public class MJComponentView: UIView {
+open class MJComponentView: UIView {
     weak var delegate: MJComponentDelegate!
-    var currentFrame = CGRectZero
+    var currentFrame = CGRect.zero
     
     init(delegate: MJComponentDelegate) {
         self.delegate = delegate
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
     }
 
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override public func layoutSubviews() {
-        if !CGRectEqualToRect(self.currentFrame, self.frame) {
+    override open func layoutSubviews() {
+        if !self.currentFrame.equalTo(self.frame) {
             self.currentFrame = self.frame
             self.updateFrame()
         }

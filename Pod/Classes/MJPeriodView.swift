@@ -9,8 +9,8 @@
 import UIKit
 import NSDate_Escort
 
-public class MJPeriodView: MJComponentView {
-    var date: NSDate! {
+open class MJPeriodView: MJComponentView {
+    var date: Date! {
         didSet {
             self.configureViews()
         }
@@ -24,7 +24,7 @@ public class MJPeriodView: MJComponentView {
         super.init(coder: aDecoder)
     }
     
-    init(date: NSDate, delegate: MJComponentDelegate) {
+    init(date: Date, delegate: MJComponentDelegate) {
         self.date = date
         super.init(delegate: delegate)
         self.clipsToBounds = true
@@ -34,13 +34,13 @@ public class MJPeriodView: MJComponentView {
     func configureViews() {
         if let weekViews = self.weeks {
             for i in 1...self.numberOfWeeks {
-                let weekDate = self.date!.self.dateByAddingDays((i-1) * 7)
+                let weekDate = (self.date!.self as NSDate).addingDays((i-1) * 7)
                 weekViews[i - 1].date = weekDate
             }
         } else {
             self.weeks = []
             for i in 1...self.numberOfWeeks {
-                let weekDate = self.date!.self.dateByAddingDays((i-1) * 7)
+                let weekDate = (self.date!.self as NSDate).addingDays((i-1) * 7)
                 let weekView = MJWeekView(date: weekDate, delegate: self.delegate!)
                 self.addSubview(weekView)
                 self.weeks!.append(weekView)
@@ -51,12 +51,12 @@ public class MJPeriodView: MJComponentView {
     }
     
     func setIsSameMonth() {
-        if (self.delegate.configurationWithComponent(self).periodType == .Month) {
+        if (self.delegate.configurationWithComponent(self).periodType == .month) {
             let monthDate = self.weeks![1].date
-            for (index, week) in (self.weeks!).enumerate() {
+            for (index, week) in (self.weeks!).enumerated() {
                 if index == 0 || index == 4 || index == 5 {
                     for dayView in week.days! {
-                        dayView.isSameMonth = dayView.date.dateAtStartOfMonth() == monthDate.dateAtStartOfMonth()
+                        dayView.isSameMonth = (dayView.date as NSDate).atStartOfMonth() == (monthDate as? NSDate)?.atStartOfMonth()
                     }
                 }
             }
@@ -64,41 +64,41 @@ public class MJPeriodView: MJComponentView {
     }
     
     override func updateFrame() {
-        for (index, week) in (self.weeks!).enumerate() {
+        for (index, week) in (self.weeks!).enumerated() {
             let lineHeight = self.delegate.configurationWithComponent(self).rowHeight
-            week.frame = CGRectMake(0, CGFloat(index) * lineHeight, self.width(), lineHeight)
+            week.frame = CGRect(x: 0, y: CGFloat(index) * lineHeight, width: self.width(), height: lineHeight)
         }
     }
     
-    public func startingDate() -> NSDate {
-        return self.weeks!.first!.days!.first!.date!
+    open func startingDate() -> Date {
+        return self.weeks!.first!.days!.first!.date! as Date
     }
     
-    public func endingDate() -> NSDate {
-        return self.weeks!.last!.days!.last!.date!
+    open func endingDate() -> Date {
+        return self.weeks!.last!.days!.last!.date! as Date
     }
     
-    public func startingPeriodDate() -> NSDate {
-        let monthCount = MJConfiguration.PeriodType.Month.weeksCount()
+    open func startingPeriodDate() -> Date {
+        let monthCount = MJConfiguration.PeriodType.month.weeksCount()
         if self.weeks?.count == monthCount {
             let middleDate = self.weeks![3].date
-            return middleDate.dateAtStartOfMonth()
+            return (middleDate! as NSDate).atStartOfMonth()
         } else {
             return startingDate()
         }
     }
     
-    public func endingPeriodDate() -> NSDate {
-        let monthCount = MJConfiguration.PeriodType.Month.weeksCount()
+    open func endingPeriodDate() -> Date {
+        let monthCount = MJConfiguration.PeriodType.month.weeksCount()
         if self.weeks?.count == monthCount {
             let middleDate = self.weeks![3].date
-            return middleDate.dateAtEndOfMonth()
+            return (middleDate! as NSDate).atEndOfMonth()
         } else {
             return endingDate()
         }
     }
     
-    public func isDateInPeriod(date: NSDate) -> Bool {
-        return date.isLaterThanOrEqualDate(startingPeriodDate()) && date.isEarlierThanOrEqualDate(endingPeriodDate())
+    open func isDateInPeriod(_ date: Date) -> Bool {
+        return (date as NSDate).isLaterThanOrEqualDate(startingPeriodDate()) && (date as NSDate).isEarlierThanOrEqualDate(endingPeriodDate())
     }
 }
