@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "MJCalendar"
-  s.version          = "0.3.0"
+  s.version          = "0.4.0"
   s.summary          = "Very customizable calendar component. Supports month, 3 week, 2 week and 1 week view."
 
 # This description is used to generate tags and improve search results.
